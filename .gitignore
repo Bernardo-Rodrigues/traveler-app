@@ -1,0 +1,12 @@
+# dependencies
+/node_modules
+
+# testing
+/cypress
+
+# production
+/dist
+
+# misc
+.env*
+!.env.example
