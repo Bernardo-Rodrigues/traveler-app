@@ -21,11 +21,13 @@ export default function FormFooter({ type }: Props) {
           href={type === "register" ? "/sign-in" : "sign-up"}
           variant="body2"
         >
-          {type === "register" ? "Já possuo cadastro" : "Não possuo cadastro"}
+          {type === "register"
+            ? "Already have an account"
+            : "Don't have an account"}
         </Link>
       </Box>
       <Button type="submit" variant="contained" sx={{ width: "116px" }}>
-        {type === "register" ? "CADASTRAR" : "ENTRAR"}
+        {type === "register" ? "SIGN UP" : "SIGN IN"}
       </Button>
     </Box>
   );

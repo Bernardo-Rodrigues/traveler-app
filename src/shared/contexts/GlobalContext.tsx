@@ -1,9 +1,14 @@
-import AlertContext from "./AlertContext";
+import AlertProvider from "./AlertContext";
+import AuthProvider from "./AuthContext";
 
 interface Props {
   children: React.ReactNode;
 }
 
 export default function GlobalProvider({ children }: Props) {
-  return <AlertContext>{children}</AlertContext>;
+  return (
+    <AuthProvider>
+      <AlertProvider>{children}</AlertProvider>
+    </AuthProvider>
+  );
 }
