@@ -40,6 +40,7 @@ export default function Avatars({ values, setValues }: Props) {
       >
         {avatars.map((avatar: any, i: number) => (
           <ListItemButton
+            id={`Avatar-${i}`}
             selected={selectedIndex === i}
             onClick={(event) => handleListItemClick(event, i)}
             key={i}
