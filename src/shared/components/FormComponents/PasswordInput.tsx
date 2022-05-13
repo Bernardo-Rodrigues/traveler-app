@@ -40,7 +40,7 @@ export default function PasswordInput({
 
   return (
     <FormControl variant="outlined">
-      <InputLabel>{confirm ? "Confirme sua senha" : "Senha"}</InputLabel>
+      <InputLabel>{confirm ? "Confirm your password" : "Password"}</InputLabel>
       <OutlinedInput
         id={confirm ? "confirm-password" : "password"}
         error={passwordError}
@@ -56,7 +56,7 @@ export default function PasswordInput({
             </IconButton>
           </InputAdornment>
         }
-        label={confirm ? "Confirme sua senha" : "Senha"}
+        label={confirm ? "Confirm your password" : "Password"}
       />
     </FormControl>
   );

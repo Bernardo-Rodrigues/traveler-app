@@ -54,15 +54,16 @@ export default function SignUp() {
 
   useEffect(() => {
     if (success) {
-      navigate("/");
+      navigate("/sign-in");
     }
+    //eslint-disable-next-line
   }, [success]);
 
   return (
     <Container sx={styles.Container}>
       <Logo />
       <Box sx={styles.Box}>
-        <Typography sx={{ fontSize: "45px" }}>Cadastro</Typography>
+        <Typography sx={{ fontSize: "45px" }}>Sign Up</Typography>
         <Form handleSubmit={handleSubmit}>
           <Avatars values={values} setValues={setValues} />
           <NameInput values={values} setValues={setValues} />
