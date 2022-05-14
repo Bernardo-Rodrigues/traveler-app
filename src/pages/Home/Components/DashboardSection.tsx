@@ -2,7 +2,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
 
-export default function MainSection() {
+export default function DashboardSection() {
   const contexts = useContexts();
   const { user } = contexts.user;
 

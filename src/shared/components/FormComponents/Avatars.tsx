@@ -32,7 +32,7 @@ export default function Avatars({ values, setValues }: Props) {
 
   return (
     <>
-      <Typography sx={{ fontSize: "25px" }}>Escolha seu avatar</Typography>
+      <Typography sx={{ fontSize: "25px" }}>Choose your avatar</Typography>
       <List
         component="nav"
         aria-label="main mailbox folders"

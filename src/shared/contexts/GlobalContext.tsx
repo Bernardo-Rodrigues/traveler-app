@@ -1,4 +1,5 @@
 import AlertProvider from "./AlertContext";
+import SectionProvider from "./SectionContext";
 import UserProvider from "./UserContext";
 
 interface Props {
@@ -8,7 +9,9 @@ interface Props {
 export default function GlobalProvider({ children }: Props) {
   return (
     <UserProvider>
-      <AlertProvider>{children}</AlertProvider>
+      <AlertProvider>
+        <SectionProvider>{children}</SectionProvider>
+      </AlertProvider>
     </UserProvider>
   );
 }

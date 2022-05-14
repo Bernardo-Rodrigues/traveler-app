@@ -2,14 +2,16 @@ import { Box } from "@mui/system";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import useContexts from "../../shared/hooks/useContexts";
+import DestiniesSection from "./Components/DestiniesSection";
 import LeftMenu from "./Components/LeftMenu";
-import MainSection from "./Components/MainSection";
+import DashboardSection from "./Components/DashboardSection";
 import RightMenu from "./Components/RightMenu";
 
 export default function Home() {
   const navigate = useNavigate();
   const contexts = useContexts();
-  const { auth, logout } = contexts.user;
+  const { auth } = contexts.user;
+  const { section } = contexts.section;
 
   useEffect(() => {
     if (!auth) {
@@ -19,9 +21,9 @@ export default function Home() {
   }, []);
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box sx={{ display: "flex", height: "100vh" }}>
       <LeftMenu />
-      <MainSection />
+      {section === "dashboard" ? <DashboardSection /> : <DestiniesSection />}
       <RightMenu />
     </Box>
   );

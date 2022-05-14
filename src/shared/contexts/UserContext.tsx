@@ -7,13 +7,17 @@ interface Props {
   children: React.ReactNode;
 }
 
+interface Auth {
+  token: string;
+}
+
 interface User {
   username: string;
   imageLink: string;
 }
 
 export interface UserContextType {
-  auth: string;
+  auth: Auth;
   user: User;
   login: (userData: any) => void;
   logout: () => void;
