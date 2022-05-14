@@ -61,7 +61,7 @@ export default function SignUp() {
 
   return (
     <Container sx={styles.Container}>
-      <Logo />
+      <Logo size="big" />
       <Box sx={styles.Box}>
         <Typography sx={{ fontSize: "45px" }}>Sign Up</Typography>
         <Form handleSubmit={handleSubmit}>

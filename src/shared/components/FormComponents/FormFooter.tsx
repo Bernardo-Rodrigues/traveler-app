@@ -26,7 +26,12 @@ export default function FormFooter({ type }: Props) {
             : "Don't have an account"}
         </Link>
       </Box>
-      <Button type="submit" variant="contained" sx={{ width: "116px" }}>
+      <Button
+        color="primary"
+        type="submit"
+        variant="contained"
+        sx={{ width: "116px" }}
+      >
         {type === "register" ? "SIGN UP" : "SIGN IN"}
       </Button>
     </Box>
