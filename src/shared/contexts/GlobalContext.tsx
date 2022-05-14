@@ -1,5 +1,5 @@
 import AlertProvider from "./AlertContext";
-import AuthProvider from "./AuthContext";
+import UserProvider from "./UserContext";
 
 interface Props {
   children: React.ReactNode;
@@ -7,8 +7,8 @@ interface Props {
 
 export default function GlobalProvider({ children }: Props) {
   return (
-    <AuthProvider>
+    <UserProvider>
       <AlertProvider>{children}</AlertProvider>
-    </AuthProvider>
+    </UserProvider>
   );
 }

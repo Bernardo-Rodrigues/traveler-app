@@ -15,10 +15,10 @@ import Logo from "../../shared/components/Logo";
 import useSignIn from "../../shared/hooks/api/useSignIn";
 
 export default function SignIn() {
-  const { signIn, errorSigningIn, success } = useSignIn();
+  const { signIn, errorSigningIn, authData } = useSignIn();
   const navigate = useNavigate();
   const contexts = useContexts();
-  const { auth, login } = contexts.auth;
+  const { auth, login } = contexts.user;
   const [values, setValues] = useState<FormInterface>({
     email: "",
     password: "",
@@ -39,16 +39,16 @@ export default function SignIn() {
   useEffect(() => {
     if (auth) {
       navigate("/");
-    } else if (success) {
-      login(success);
+    } else if (authData) {
+      login(authData);
       navigate("/");
     }
     //eslint-disable-next-line
-  }, [success]);
+  }, [authData]);
 
   return (
     <Container sx={styles.Container}>
-      <Logo />
+      <Logo size="big" />
       <Box sx={styles.Box}>
         <Typography sx={{ fontSize: "45px" }}>Sign In</Typography>
         <Form handleSubmit={handleSubmit}>

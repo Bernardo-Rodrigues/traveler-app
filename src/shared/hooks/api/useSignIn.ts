@@ -8,7 +8,7 @@ export default function useSignIn() {
 
   return {
     errorSigningIn: error,
-    success: data,
+    authData: data,
     signIn: act,
   };
 }
