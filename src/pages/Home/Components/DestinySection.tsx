@@ -1,6 +1,14 @@
-import { List, ListItem, Typography } from "@mui/material";
+import {
+  Button,
+  List,
+  ListItem,
+  Typography,
+  TextField,
+  Divider,
+  Rating,
+} from "@mui/material";
 import { Box } from "@mui/system";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import useDestiny from "../../../shared/hooks/api/useDestiny";
 import { fireAlert } from "../../../shared/utils/alerts";
@@ -8,19 +16,66 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import useContexts from "../../../shared/hooks/useContexts";
+import BookmarkAddIcon from "@mui/icons-material/BookmarkAdd";
+import EventIcon from "@mui/icons-material/Event";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import AddTaskIcon from "@mui/icons-material/AddTask";
+import useAddFavorites from "../../../shared/hooks/api/useAddFavorites";
+import useHeaders from "../../../shared/hooks/useHeaders";
+import useRemoveFavorites from "../../../shared/hooks/api/useRemoveFavorites";
+import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 
 export default function DestinySection() {
-  const { destiny, loadingDestiny, getDestinyError } = useDestiny();
+  const { destiny, loadingDestiny, getDestinyError, updateDestiny } =
+    useDestiny();
+  const { addFavorite, addFavoriteError } = useAddFavorites();
+  const { removeFavorite, removeFavoriteError } = useRemoveFavorites();
   const navigate = useNavigate();
   const contexts = useContexts();
   const { logout } = contexts.user;
+  const [initialDate, setInitialDate] = useState<Date | null>(null);
+  const [finalDate, setFinalDate] = useState<Date | null>(null);
+  const [rating, setRating] = useState<number | null>(0);
+  const headers = useHeaders();
 
   useEffect(() => {
     if (getDestinyError) {
       fireAlert(getDestinyError.data);
       if (getDestinyError.status === 401) logout();
     }
+    //eslint-disable-next-line
   }, [getDestinyError]);
+
+  useEffect(() => {
+    if (addFavoriteError) {
+      fireAlert(addFavoriteError.data);
+      if (addFavoriteError.status === 401) logout();
+    }
+    //eslint-disable-next-line
+  }, [addFavoriteError]);
+
+  useEffect(() => {
+    if (removeFavoriteError) {
+      fireAlert(removeFavoriteError.data);
+      if (removeFavoriteError.status === 401) logout();
+    }
+    //eslint-disable-next-line
+  }, [removeFavoriteError]);
+
+  async function handleFavoriteButton(destinyId: number, destinyName: string) {
+    await addFavorite(destinyId, headers);
+    updateDestiny(destinyName);
+  }
+
+  async function handleUnfavoriteButton(
+    destinyId: number,
+    destinyName: string
+  ) {
+    await removeFavorite(destinyId, headers);
+    updateDestiny(destinyName);
+  }
 
   if ((loadingDestiny && !destiny) || !destiny) {
     return (
@@ -108,6 +163,78 @@ export default function DestinySection() {
           </ListItem>
         ))}
       </List>
+      <Divider sx={{ marginBottom: "30px" }} />
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "space-around",
+          gap: "20px",
+          alignItems: "center",
+        }}
+      >
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "10px",
+            alignItems: "center",
+          }}
+        >
+          <Button
+            fullWidth
+            variant="contained"
+            startIcon={
+              destiny.favorited ? <BookmarkRemoveIcon /> : <BookmarkAddIcon />
+            }
+            onClick={
+              destiny.favorited
+                ? () => {
+                    handleUnfavoriteButton(destiny.id, destiny.name);
+                  }
+                : () => {
+                    handleFavoriteButton(destiny.id, destiny.name);
+                  }
+            }
+          >
+            {destiny.favorited ? "Remove from favorites" : "Add to favorites"}
+          </Button>
+          <Button variant="contained" startIcon={<AddTaskIcon />}>
+            I know this destination
+          </Button>
+
+          <Rating
+            name="simple-controlled"
+            value={rating}
+            onChange={(event, newValue) => {
+              setRating(newValue);
+            }}
+          />
+        </Box>
+        <Typography>OR</Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <DatePicker
+              label="Initial date"
+              value={initialDate}
+              onChange={(newValue) => {
+                setInitialDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+            <DatePicker
+              label="Final date"
+              value={finalDate}
+              onChange={(newValue) => {
+                setFinalDate(newValue);
+              }}
+              renderInput={(params) => <TextField {...params} />}
+            />
+          </LocalizationProvider>
+          <Button variant="contained" startIcon={<EventIcon />}>
+            Book now
+          </Button>
+        </Box>
+      </Box>
     </Box>
   );
 }
