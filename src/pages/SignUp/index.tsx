@@ -48,7 +48,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (errorSigningUp) {
-      fireAlert(errorSigningUp);
+      fireAlert(errorSigningUp.data);
     }
   }, [errorSigningUp]);
 

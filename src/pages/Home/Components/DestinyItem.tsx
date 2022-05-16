@@ -8,6 +8,7 @@ import {
 } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SearchIcon from "@mui/icons-material/Search";
+import { useNavigate } from "react-router";
 
 interface Destiny {
   name: string;
@@ -20,6 +21,8 @@ interface Props {
 }
 
 export default function DestinyItem({ destiny }: Props) {
+  const navigate = useNavigate();
+
   return (
     <ListItem
       sx={{
@@ -55,6 +58,7 @@ export default function DestinyItem({ destiny }: Props) {
         color="primary"
         variant="contained"
         startIcon={<SearchIcon />}
+        onClick={() => navigate(`/destinies/${destiny.name}`)}
         sx={{
           textTransform: "none",
           fontWeight: "bold",

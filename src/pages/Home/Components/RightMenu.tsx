@@ -23,12 +23,12 @@ export default function RightMenu() {
       >
         <Avatar
           alt="Avatar"
-          src={user.imageLink}
+          src={user?.imageLink}
           sx={{ width: "60px", height: "60px" }}
         />
         <Box>
           <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-            {user.username}
+            {user?.username}
           </Typography>
           <Typography
             sx={{ fontWeight: "bold", fontSize: "14px", color: "#73848C" }}

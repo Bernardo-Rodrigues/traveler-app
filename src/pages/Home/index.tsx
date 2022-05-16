@@ -6,11 +6,13 @@ import DestiniesSection from "./Components/DestiniesSection";
 import LeftMenu from "./Components/LeftMenu";
 import DashboardSection from "./Components/DashboardSection";
 import RightMenu from "./Components/RightMenu";
+import DestinySection from "./Components/DestinySection";
 
 export default function Home() {
   const navigate = useNavigate();
   const contexts = useContexts();
   const { auth } = contexts.user;
+
   const { section } = contexts.section;
 
   useEffect(() => {
@@ -20,10 +22,19 @@ export default function Home() {
     //eslint-disable-next-line
   }, []);
 
+  if (!auth) return null;
+  if (section.length === 0) return null;
+
   return (
     <Box sx={{ display: "flex", height: "100vh" }}>
       <LeftMenu />
-      {section === "dashboard" ? <DashboardSection /> : <DestiniesSection />}
+      {section === "dashboard" ? (
+        <DashboardSection />
+      ) : section === "destinies" ? (
+        <DestiniesSection />
+      ) : (
+        <DestinySection />
+      )}
       <RightMenu />
     </Box>
   );
