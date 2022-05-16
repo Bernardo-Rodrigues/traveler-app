@@ -32,7 +32,7 @@ export default function SignIn() {
 
   useEffect(() => {
     if (errorSigningIn) {
-      fireAlert(errorSigningIn);
+      fireAlert(errorSigningIn.data);
     }
   }, [errorSigningIn]);
 

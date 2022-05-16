@@ -11,7 +11,7 @@ export default function LeftMenu() {
   const navigate = useNavigate();
   const contexts = useContexts();
   const { logout } = contexts.user;
-  const { section, setSection } = contexts.section;
+  const { section } = contexts.section;
 
   return (
     <Box
@@ -44,7 +44,7 @@ export default function LeftMenu() {
           }}
           color={section === "dashboard" ? "primary" : "secondary"}
           variant="contained"
-          onClick={() => setSection("dashboard")}
+          onClick={() => navigate("/dashboard")}
         >
           Dashboard
         </Button>
@@ -58,7 +58,7 @@ export default function LeftMenu() {
           }}
           color={section === "destinies" ? "primary" : "secondary"}
           variant="contained"
-          onClick={() => setSection("destinies")}
+          onClick={() => navigate("/destinies")}
         >
           Destinies
         </Button>
