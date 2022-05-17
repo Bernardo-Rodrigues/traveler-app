@@ -5,7 +5,7 @@ import {
   ListItemButton,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import useAvatars from "../../hooks/api/useAvatars";
 import Form from "../../interfaces/Form";
 
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function Avatars({ values, setValues }: Props) {
-  const { avatars, loadingAvatars } = useAvatars();
+  const { avatars, loadingAvatars, listAvatarsError } = useAvatars();
   const [selectedIndex, setSelectedIndex] = useState<null | number>(null);
 
   const handleListItemClick = (
@@ -25,6 +25,10 @@ export default function Avatars({ values, setValues }: Props) {
     setSelectedIndex(index);
     setValues({ ...values, avatarId: index + 1 });
   };
+
+  if (listAvatarsError) {
+    return <div>No avatars found, come back later!</div>;
+  }
 
   if ((loadingAvatars && !avatars) || !avatars) {
     return <div>Loading...</div>;

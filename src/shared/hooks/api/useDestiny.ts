@@ -13,10 +13,15 @@ export default function useDestiny() {
     service.getOne(section, headers)
   );
 
+  const update = (name: string) => {
+    act(name, headers);
+  };
+
   return {
     destiny: data,
     loadingDestiny: loading,
     getDestiny: act,
     getDestinyError: error,
+    updateDestiny: update,
   };
 }

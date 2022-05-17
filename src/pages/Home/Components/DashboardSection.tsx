@@ -1,10 +1,11 @@
 import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
+import FavoritesSection from "./FavoritesSection";
 
 export default function DashboardSection() {
   const contexts = useContexts();
-  const { user, auth } = contexts.user;
+  const { user } = contexts.user;
 
   return (
     <Box
@@ -16,7 +17,14 @@ export default function DashboardSection() {
         borderRadius: "50px",
       }}
     >
-      <Typography>{`Hello ${user.username}`}</Typography>
+      <Typography
+        variant="h4"
+        fontWeight="bold"
+      >{`Hello, ${user.username}! 👋`}</Typography>
+      <Typography sx={{ color: "#999", marginTop: "10px" }}>
+        Welcome back and explore the world.
+      </Typography>
+      <FavoritesSection />
     </Box>
   );
 }
