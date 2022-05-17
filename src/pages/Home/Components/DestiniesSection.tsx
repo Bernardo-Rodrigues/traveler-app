@@ -1,7 +1,7 @@
 import { List, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import { Navigate, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import useDestinies from "../../../shared/hooks/api/useDestinies";
 import useContexts from "../../../shared/hooks/useContexts";
 import { fireAlert } from "../../../shared/utils/alerts";
@@ -11,13 +11,13 @@ export default function DestiniesSection() {
   const { destinies, loadingDestinies, listingDestiniesError } = useDestinies();
   const contexts = useContexts();
   const { logout } = contexts.user;
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (listingDestiniesError) {
       fireAlert(listingDestiniesError.data);
       if (listingDestiniesError.status === 401) logout();
     }
+    //eslint-disable-next-line
   }, [listingDestiniesError]);
 
   if ((loadingDestinies && !destinies) || !destinies) {
@@ -70,7 +70,7 @@ export default function DestiniesSection() {
           position: "sticky",
           top: "0px",
           zIndex: "1",
-          background: "#E5FAF8",
+          background: "#F1FBF4",
         }}
       >
         Destinies

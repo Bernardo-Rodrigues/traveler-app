@@ -9,11 +9,13 @@ import {
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
+import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
 interface Destiny {
   name: string;
   localization: string;
   imageLink: string;
+  score: number;
 }
 
 interface Props {
@@ -50,7 +52,12 @@ export default function DestinyItem({ destiny }: Props) {
           {destiny.name}
         </Typography>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
-          <LocationOnOutlinedIcon /> {destiny.localization}
+          <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
+          {destiny.localization}
+          <StarBorderOutlinedIcon
+            sx={{ marginLeft: "25px", color: "#FF8344" }}
+          />
+          {destiny.score}
         </Typography>
       </ListItemText>
 

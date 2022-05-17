@@ -144,7 +144,7 @@ export default function DestinySection() {
             <StarBorderOutlinedIcon
               sx={{ marginLeft: "25px", color: "#FF8344" }}
             />
-            4.8
+            {destiny.score}
           </Typography>
         </Box>
       </Box>
