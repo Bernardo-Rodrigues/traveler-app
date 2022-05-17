@@ -5,8 +5,10 @@ export default class DestiniesService {
     return api.get(`/destinies`, headers);
   }
   getAllFavorites(headers: any) {
-    console.log("foi");
     return api.get(`/destinies/favorites`, headers);
+  }
+  getTop(headers: any) {
+    return api.get(`/destinies/top`, headers);
   }
   getOne(destinyName: string, headers: any) {
     return api.get(`/destinies/${destinyName}`, headers);

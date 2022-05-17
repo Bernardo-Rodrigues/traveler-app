@@ -77,7 +77,7 @@ export default function DestiniesSection() {
       </Typography>
       <List>
         {destinies.map((destiny: any, i: number) => (
-          <DestinyItem key={i} destiny={destiny} />
+          <DestinyItem key={i} size="big" destiny={destiny} />
         ))}
       </List>
     </Box>

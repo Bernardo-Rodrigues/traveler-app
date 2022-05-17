@@ -2,6 +2,7 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
 import FavoritesSection from "./FavoritesSection";
+import TopDestinationsSection from "./TopDestinationsSection";
 
 export default function DashboardSection() {
   const contexts = useContexts();
@@ -25,6 +26,7 @@ export default function DashboardSection() {
         Welcome back and explore the world.
       </Typography>
       <FavoritesSection />
+      <TopDestinationsSection />
     </Box>
   );
 }

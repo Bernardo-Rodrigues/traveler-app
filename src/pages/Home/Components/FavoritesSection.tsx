@@ -32,6 +32,7 @@ export default function FavoritesSection() {
         padding: "15px",
         borderRadius: "25px",
         marginTop: "30px",
+        height: "45%",
       }}
     >
       <Typography
@@ -47,6 +48,7 @@ export default function FavoritesSection() {
           display: "flex",
           marginTop: "20px",
           gap: "25px",
+          height: "87%",
         }}
       >
         {favorites.length === 0 ? (
@@ -60,9 +62,3 @@ export default function FavoritesSection() {
     </Box>
   );
 }
-
-const style = {
-  height: "325px",
-  width: "250px",
-  borderRadius: "25px",
-};
