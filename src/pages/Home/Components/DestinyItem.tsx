@@ -20,9 +20,10 @@ interface Destiny {
 
 interface Props {
   destiny: Destiny;
+  size: string;
 }
 
-export default function DestinyItem({ destiny }: Props) {
+export default function DestinyItem({ destiny, size }: Props) {
   const navigate = useNavigate();
 
   return (
@@ -33,21 +34,29 @@ export default function DestinyItem({ destiny }: Props) {
         display: "flex",
         gap: "40px",
         padding: "2% 3%",
-        marginBottom: "25px",
+        marginBottom: size === "small" ? "10px" : "25px",
       }}
     >
       <ListItemAvatar>
         <Avatar
           alt="Avatar"
           src={destiny.imageLink}
-          sx={{ width: "150px", height: "150px" }}
+          sx={
+            size === "small"
+              ? { width: "75px", height: "75px" }
+              : { width: "150px", height: "150px" }
+          }
         />
       </ListItemAvatar>
 
       <ListItemText>
         <Typography
-          variant="h4"
-          sx={{ marginBottom: "30px", fontWeight: "bold" }}
+          variant={size === "small" ? "h5" : "h4"}
+          sx={
+            size === "small"
+              ? { marginBottom: "10px", fontWeight: "bold" }
+              : { marginBottom: "30px", fontWeight: "bold" }
+          }
         >
           {destiny.name}
         </Typography>

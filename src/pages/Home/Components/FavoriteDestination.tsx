@@ -12,7 +12,7 @@ export default function FavoritesDestination({ destination }: Props) {
   const navigate = useNavigate();
   const style = {
     position: "relative",
-    height: "325px",
+    height: "100%",
     width: "250px",
     backgroundImage: `url(${destination.imageLink})`,
     backgroundSize: "cover",
