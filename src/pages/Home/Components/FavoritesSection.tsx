@@ -48,7 +48,9 @@ export default function FavoritesSection() {
           display: "flex",
           marginTop: "20px",
           gap: "25px",
+          width: "100%",
           height: "87%",
+          overflow: "scroll",
         }}
       >
         {favorites.length === 0 ? (
