@@ -25,63 +25,64 @@ interface Props {
 
 export default function DestinyItem({ destiny, size }: Props) {
   const navigate = useNavigate();
+  const listItem = {
+    ...styles.listItem,
+    marginBottom: size === "small" ? "10px" : "25px",
+  };
 
   return (
-    <ListItem
-      sx={{
-        backgroundColor: "#fff",
-        borderRadius: "10px",
-        display: "flex",
-        gap: "40px",
-        padding: "2% 3%",
-        marginBottom: size === "small" ? "10px" : "25px",
-      }}
-    >
+    <ListItem sx={listItem}>
       <ListItemAvatar>
         <Avatar
           alt="Avatar"
           src={destiny.imageLink}
-          sx={
-            size === "small"
-              ? { width: "75px", height: "75px" }
-              : { width: "150px", height: "150px" }
-          }
+          sx={size === "small" ? styles.smallAvatar : styles.bigAvatar}
         />
       </ListItemAvatar>
 
       <ListItemText>
         <Typography
           variant={size === "small" ? "h5" : "h4"}
-          sx={
-            size === "small"
-              ? { marginBottom: "10px", fontWeight: "bold" }
-              : { marginBottom: "30px", fontWeight: "bold" }
-          }
+          fontWeight="bold"
+          sx={size === "small" ? styles.smallTypography : styles.bigTypography}
         >
           {destiny.name}
         </Typography>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
-          <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
+          <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />
           {destiny.localization}
-          <StarBorderOutlinedIcon
-            sx={{ marginLeft: "25px", color: "#FF8344" }}
-          />
+          <StarBorderOutlinedIcon sx={styles.starIcon} />
           {destiny.score}
         </Typography>
       </ListItemText>
 
       <Button
-        color="primary"
         variant="contained"
         startIcon={<SearchIcon />}
         onClick={() => navigate(`/destinies/${destiny.name}`)}
-        sx={{
-          textTransform: "none",
-          fontWeight: "bold",
-        }}
+        sx={styles.button}
       >
         Explore this destiny
       </Button>
     </ListItem>
   );
 }
+
+const styles = {
+  listItem: {
+    backgroundColor: "#fff",
+    borderRadius: "10px",
+    display: "flex",
+    gap: "40px",
+    padding: "2% 3%",
+  },
+  smallAvatar: { width: "75px", height: "75px" },
+  bigAvatar: { width: "150px", height: "150px" },
+  smallTypography: { marginBottom: "10px" },
+  bigTypography: { marginBottom: "30px" },
+  button: {
+    textTransform: "none",
+    fontWeight: "bold",
+  },
+  starIcon: { marginLeft: "25px", color: "#FF8344" },
+};

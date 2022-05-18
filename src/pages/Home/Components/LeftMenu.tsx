@@ -6,6 +6,7 @@ import TravelExploreIcon from "@mui/icons-material/TravelExplore";
 import LogoutIcon from "@mui/icons-material/Logout";
 import useContexts from "../../../shared/hooks/useContexts";
 import { useNavigate } from "react-router";
+import { LeftMenuButton } from "../../../shared/styles/themes";
 
 export default function LeftMenu() {
   const navigate = useNavigate();
@@ -14,70 +15,53 @@ export default function LeftMenu() {
   const { section } = contexts.section;
 
   return (
-    <Box
-      sx={{
-        flex: 1,
-        display: "flex",
-        flexDirection: "column",
-        padding: "40px 40px",
-        alignItems: "center",
-        justifyContent: "space-between",
-      }}
-    >
+    <Box sx={styles.leftMenu}>
       <Logo size="small" />
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          gap: "20px",
-          width: "100%",
-          marginTop: "-60vh",
-        }}
-      >
-        <Button
+      <Box sx={styles.menuButtons}>
+        <LeftMenuButton
           startIcon={<HomeIcon />}
-          sx={{
-            textTransform: "none",
-            height: "50px",
-            fontSize: "17px",
-            fontWeight: "bold",
-          }}
           color={section === "dashboard" ? "primary" : "secondary"}
           variant="contained"
           onClick={() => navigate("/dashboard")}
         >
           Dashboard
-        </Button>
-        <Button
+        </LeftMenuButton>
+        <LeftMenuButton
           startIcon={<TravelExploreIcon />}
-          sx={{
-            textTransform: "none",
-            height: "50px",
-            fontSize: "17px",
-            fontWeight: "bold",
-          }}
           color={section === "destinies" ? "primary" : "secondary"}
           variant="contained"
           onClick={() => navigate("/destinies")}
         >
           Destinies
-        </Button>
+        </LeftMenuButton>
       </Box>
-      <Button
+      <LeftMenuButton
         color="secondary"
         startIcon={<LogoutIcon />}
         onClick={logout}
-        sx={{
-          textTransform: "none",
-          height: "50px",
-          fontSize: "17px",
-          fontWeight: "bold",
-        }}
         variant="contained"
         fullWidth
       >
         Log Out
-      </Button>
+      </LeftMenuButton>
     </Box>
   );
 }
+
+const styles = {
+  leftMenu: {
+    width: "20%",
+    display: "flex",
+    flexDirection: "column",
+    padding: "40px",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  menuButtons: {
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+    width: "100%",
+    marginTop: "-60vh",
+  },
+};

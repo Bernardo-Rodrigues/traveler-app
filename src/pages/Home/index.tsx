@@ -12,7 +12,6 @@ export default function Home() {
   const navigate = useNavigate();
   const contexts = useContexts();
   const { auth } = contexts.user;
-
   const { section } = contexts.section;
 
   useEffect(() => {
