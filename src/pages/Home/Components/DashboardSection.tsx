@@ -16,6 +16,7 @@ export default function DashboardSection() {
         margin: "20px 0",
         padding: "30px",
         borderRadius: "50px",
+        width: "60%",
       }}
     >
       <Typography

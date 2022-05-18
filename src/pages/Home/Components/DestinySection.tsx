@@ -28,6 +28,7 @@ import useRemoveFavorites from "../../../shared/hooks/api/useRemoveFavorites";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import useAddTravel from "../../../shared/hooks/api/useAddTravel";
 import dayjs from "dayjs";
+import useListUpcomingTrips from "../../../shared/hooks/api/useListUpcomingTrips";
 
 export default function DestinySection() {
   const { destiny, loadingDestiny, getDestinyError, updateDestiny } =
@@ -43,6 +44,7 @@ export default function DestinySection() {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [rating, setRating] = useState<number | null>(0);
   const headers = useHeaders();
+  const { listTrips } = useListUpcomingTrips();
 
   useEffect(() => {
     if (getDestinyError) {
@@ -103,6 +105,7 @@ export default function DestinySection() {
       return setMessage({ type: "error", text: "Dates are invalid" });
 
     await addTravel(destinyId, { startDate, endDate }, headers);
+    listTrips(headers);
   }
 
   if ((loadingDestiny && !destiny) || !destiny) {

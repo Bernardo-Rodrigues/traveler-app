@@ -13,7 +13,7 @@ export default function FavoritesDestination({ destination }: Props) {
   const style = {
     position: "relative",
     height: "100%",
-    width: "250px",
+    minWidth: "225px",
     backgroundImage: `url(${destination.imageLink})`,
     backgroundSize: "cover",
     borderRadius: "25px",

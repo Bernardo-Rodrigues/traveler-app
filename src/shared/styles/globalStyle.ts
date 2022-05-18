@@ -21,6 +21,6 @@ export const GlobalStyle = createGlobalStyle`
         border-spacing: 0;
     }
     ::-webkit-scrollbar {
-display: none;
-}
+        display: none;
+    }
 `;

@@ -14,8 +14,6 @@ export default function TopDestinationsSection() {
   const { topDestinies, loadingTopDestinies, listingTopDestiniesError } =
     useTopDestinies();
 
-  console.log(topDestinies);
-
   useEffect(() => {
     if (listingTopDestiniesError) {
       fireAlert(listingTopDestiniesError.data);
@@ -33,6 +31,7 @@ export default function TopDestinationsSection() {
       sx={{
         backgroundColor: "#fff",
         padding: "15px",
+        paddingTop: "0px",
         borderRadius: "25px",
         marginTop: "30px",
         overflowY: "scroll",
@@ -51,7 +50,7 @@ export default function TopDestinationsSection() {
           top: "0px",
           zIndex: "1",
           background: "#fff",
-          paddingBottom: "20px",
+          padding: "20px 0",
         }}
       >
         Top destinations

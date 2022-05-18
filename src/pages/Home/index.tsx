@@ -26,7 +26,13 @@ export default function Home() {
   if (section.length === 0) return null;
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
+    <Box
+      sx={{
+        display: "flex",
+        height: "100vh",
+        width: "100vw",
+      }}
+    >
       <LeftMenu />
       {section === "dashboard" ? (
         <DashboardSection />
