@@ -10,41 +10,28 @@ interface Props {
 
 export default function FavoritesDestination({ destination }: Props) {
   const navigate = useNavigate();
-  const style = {
-    position: "relative",
-    height: "100%",
-    minWidth: "225px",
+  const listItem = {
+    ...styles.listItem,
     backgroundImage: `url(${destination.imageLink})`,
-    backgroundSize: "cover",
-    borderRadius: "25px",
-    border: "3px solid #2ED29B",
-    cursor: "pointer",
   };
 
   return (
     <ListItem
-      sx={style}
+      sx={listItem}
       onClick={() => navigate(`/destinies/${destination.name}`)}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          bottom: "10px",
-          left: "10px",
-          padding: "10px",
-          borderRadius: "10px",
-          border: "3px solid #2ED29B",
-          backgroundColor: "#fff",
-        }}
-      >
-        <Typography fontWeight="bold" variant="h5" sx={{ margin: "0 0 0 5px" }}>
+      <Box sx={styles.overlay}>
+        <Typography
+          fontWeight="bold"
+          sx={{ margin: "0 0 0 5px", fontSize: "15px" }}
+        >
           {destination.name}
         </Typography>
-        <Typography sx={{ display: "flex", gap: "5px", alignItems: "center" }}>
-          <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
+        <Typography sx={styles.typography}>
+          <LocationOnOutlinedIcon sx={{ width: "20px", color: "#FF8344" }} />{" "}
           {destination.localization}
           <StarBorderOutlinedIcon
-            sx={{ marginLeft: "25px", color: "#FF8344" }}
+            sx={{ marginLeft: "5%", color: "#FF8344", width: "20px" }}
           />
           {destination.score}
         </Typography>
@@ -52,3 +39,31 @@ export default function FavoritesDestination({ destination }: Props) {
     </ListItem>
   );
 }
+
+const styles = {
+  listItem: {
+    position: "relative",
+    minWidth: "22%",
+    width: "230px",
+    backgroundSize: "cover",
+    borderRadius: "25px",
+    border: "3px solid #2ED29B",
+    cursor: "pointer",
+  },
+  overlay: {
+    position: "absolute",
+    bottom: "10px",
+    left: "10px",
+    padding: "5px",
+    width: "70%",
+    borderRadius: "10px",
+    border: "3px solid #2ED29B",
+    backgroundColor: "#fff",
+  },
+  typography: {
+    display: "flex",
+    gap: "3px",
+    alignItems: "center",
+    fontSize: "13px",
+  },
+};

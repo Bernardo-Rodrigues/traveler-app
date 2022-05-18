@@ -1,4 +1,4 @@
-import { List, Typography } from "@mui/material";
+import { List, Typography, Avatar } from "@mui/material";
 import { Box } from "@mui/system";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import FavoriteDestination from "./FavoriteDestination";
@@ -6,6 +6,7 @@ import useListFavorites from "../../../shared/hooks/api/useListFavorites";
 import { useEffect } from "react";
 import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
+import NoFavorites from "./NoFavorites";
 
 export default function FavoritesSection() {
   const contexts = useContexts();
@@ -26,41 +27,43 @@ export default function FavoritesSection() {
   }
 
   return (
-    <Box
-      sx={{
-        backgroundColor: "#fff",
-        padding: "15px",
-        borderRadius: "25px",
-        marginTop: "30px",
-        height: "45%",
-      }}
-    >
-      <Typography
-        variant="h5"
-        fontWeight="bold"
-        sx={{ display: "flex", gap: "15px", alignItems: "center" }}
-      >
+    <Box sx={styles.favorites}>
+      <Typography variant="h5" fontWeight="bold" sx={styles.title}>
         Favorites destinations
-        <BookmarksIcon />
+        <BookmarksIcon sx={{ color: "#2ED29B" }} />
       </Typography>
-      <List
-        sx={{
-          display: "flex",
-          marginTop: "20px",
-          gap: "25px",
-          width: "100%",
-          height: "87%",
-          overflow: "scroll",
-        }}
-      >
-        {favorites.length === 0 ? (
-          <div>You haven&apos;t bookmarked any destination yet</div>
-        ) : (
-          favorites.map((favorite: any, i: number) => (
+      {favorites.length === 0 ? (
+        <NoFavorites />
+      ) : (
+        <List sx={styles.list}>
+          {favorites.map((favorite: any, i: number) => (
             <FavoriteDestination key={i} destination={favorite} />
-          ))
-        )}
-      </List>
+          ))}
+        </List>
+      )}
     </Box>
   );
 }
+
+const styles = {
+  favorites: {
+    backgroundColor: "#fff",
+    padding: "15px",
+    borderRadius: "25px",
+    marginTop: "30px",
+    height: "45%",
+  },
+  title: {
+    display: "flex",
+    gap: "15px",
+    alignItems: "center",
+    marginBottom: "20px",
+  },
+  list: {
+    display: "flex",
+    gap: "25px",
+    width: "100%",
+    height: "87%",
+    overflow: "scroll",
+  },
+};

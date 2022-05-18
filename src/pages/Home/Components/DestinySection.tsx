@@ -29,22 +29,15 @@ import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 import useAddTravel from "../../../shared/hooks/api/useAddTravel";
 import dayjs from "dayjs";
 import useListUpcomingTrips from "../../../shared/hooks/api/useListUpcomingTrips";
+import DestinyBanner from "./DestinyBanner";
+import DestinyDescriptions from "./DestinyDescriptions";
+import DestinyFooter from "./DestinyFooter";
 
 export default function DestinySection() {
   const { destiny, loadingDestiny, getDestinyError, updateDestiny } =
     useDestiny();
-  const { addFavorite, addFavoriteError } = useAddFavorites();
-  const { addTravel, addTravelError, addTravelSuccess } = useAddTravel();
-  const { removeFavorite, removeFavoriteError } = useRemoveFavorites();
-  const navigate = useNavigate();
   const contexts = useContexts();
   const { logout } = contexts.user;
-  const { setMessage } = contexts.alert;
-  const [startDate, setStartDate] = useState<Date | null>(null);
-  const [endDate, setEndDate] = useState<Date | null>(null);
-  const [rating, setRating] = useState<number | null>(0);
-  const headers = useHeaders();
-  const { listTrips } = useListUpcomingTrips();
 
   useEffect(() => {
     if (getDestinyError) {
@@ -54,231 +47,29 @@ export default function DestinySection() {
     //eslint-disable-next-line
   }, [getDestinyError]);
 
-  useEffect(() => {
-    if (addTravelSuccess) {
-      return setMessage({ type: "success", text: "The trip has been booked" });
-    }
-    //eslint-disable-next-line
-  }, [addTravelSuccess]);
-
-  useEffect(() => {
-    if (addFavoriteError) {
-      fireAlert(addFavoriteError.data);
-      if (addFavoriteError.status === 401) logout();
-    }
-    //eslint-disable-next-line
-  }, [addFavoriteError]);
-
-  useEffect(() => {
-    if (removeFavoriteError) {
-      fireAlert(removeFavoriteError.data);
-      if (removeFavoriteError.status === 401) logout();
-    }
-    //eslint-disable-next-line
-  }, [removeFavoriteError]);
-
-  useEffect(() => {
-    if (addTravelError) {
-      fireAlert(addTravelError.data);
-      if (addTravelError.status === 401) logout();
-    }
-    //eslint-disable-next-line
-  }, [addTravelError]);
-
-  async function handleFavoriteButton(destinyId: number, destinyName: string) {
-    await addFavorite(destinyId, headers);
-    updateDestiny(destinyName);
-  }
-
-  async function handleUnfavoriteButton(
-    destinyId: number,
-    destinyName: string
-  ) {
-    await removeFavorite(destinyId, headers);
-    updateDestiny(destinyName);
-  }
-
-  async function handleBooking(destinyId: number) {
-    if (!startDate || !endDate)
-      return setMessage({ type: "error", text: "Both dates must be informed" });
-    if (dayjs(startDate).isAfter(endDate))
-      return setMessage({ type: "error", text: "Dates are invalid" });
-
-    await addTravel(destinyId, { startDate, endDate }, headers);
-    listTrips(headers);
-  }
-
   if ((loadingDestiny && !destiny) || !destiny) {
-    return (
-      <Box
-        sx={{
-          flex: 3,
-          background: "#F1FBF4",
-          margin: "20px 0",
-          padding: "0px 30px 30px",
-          borderRadius: "50px",
-        }}
-      >
-        Loading...
-      </Box>
-    );
+    return <Box sx={styles.destiny}>Loading...</Box>;
   }
 
   return (
-    <Box
-      sx={{
-        flex: 3,
-        background: "#F1FBF4",
-        margin: "20px 0",
-        padding: "30px 30px 30px",
-        borderRadius: "50px",
-        overflowY: "scroll",
-      }}
-    >
-      <Box sx={{ position: "relative", marginBottom: "50px" }}>
-        <img alt="destiny" src={destiny.imageLink} style={styles.img} />
-        <ArrowCircleLeftIcon
-          onClick={() => navigate("/destinies")}
-          sx={{
-            position: "absolute",
-            left: "20px",
-            top: "30px",
-            color: "#fff",
-            width: "40px",
-            height: "40px",
-            cursor: "pointer",
-          }}
-        />
-        <Box
-          sx={{
-            position: "absolute",
-            backgroundColor: "#fff",
-            left: "20px",
-            bottom: "-20px",
-            padding: "10px",
-            borderRadius: "10px",
-            border: "3px solid #2ED29B",
-          }}
-        >
-          <Typography
-            variant="h5"
-            fontWeight="bold"
-            sx={{ margin: "0 0 15px 5px" }}
-          >
-            {destiny.name}
-          </Typography>
-          <Typography
-            sx={{ display: "flex", gap: "5px", alignItems: "center" }}
-          >
-            <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
-            {destiny.localization}
-            <StarBorderOutlinedIcon
-              sx={{ marginLeft: "25px", color: "#FF8344" }}
-            />
-            {destiny.score}
-          </Typography>
-        </Box>
-      </Box>
-      <List>
-        {destiny.descriptions.map((description: any, i: number) => (
-          <ListItem
-            key={i}
-            sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
-          >
-            <Typography variant="h5" fontWeight="bold">
-              {description.type}
-            </Typography>
-            <Typography fontSize="15px" sx={{ color: "#666" }}>
-              {description.text}
-            </Typography>
-          </ListItem>
-        ))}
-      </List>
-      <Divider sx={{ marginBottom: "30px" }} />
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "space-around",
-          gap: "20px",
-          alignItems: "center",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            gap: "10px",
-            alignItems: "center",
-          }}
-        >
-          <Button
-            fullWidth
-            variant="contained"
-            startIcon={
-              destiny.favorited ? <BookmarkRemoveIcon /> : <BookmarkAddIcon />
-            }
-            onClick={
-              destiny.favorited
-                ? () => {
-                    handleUnfavoriteButton(destiny.id, destiny.name);
-                  }
-                : () => {
-                    handleFavoriteButton(destiny.id, destiny.name);
-                  }
-            }
-          >
-            {destiny.favorited ? "Remove from favorites" : "Add to favorites"}
-          </Button>
-          <Button variant="contained" startIcon={<AddTaskIcon />}>
-            I know this destination
-          </Button>
-
-          <Rating
-            name="simple-controlled"
-            value={rating}
-            onChange={(event, newValue) => {
-              setRating(newValue);
-            }}
-          />
-        </Box>
-        <Typography>OR</Typography>
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-          <LocalizationProvider dateAdapter={AdapterDateFns}>
-            <DatePicker
-              label="Initial date"
-              value={startDate}
-              onChange={(newValue) => {
-                setStartDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-            <DatePicker
-              label="Final date"
-              value={endDate}
-              onChange={(newValue) => {
-                setEndDate(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-          <Button
-            variant="contained"
-            startIcon={<EventIcon />}
-            onClick={() => handleBooking(destiny.id)}
-          >
-            Book now
-          </Button>
-        </Box>
-      </Box>
+    <Box sx={styles.destiny}>
+      <DestinyBanner destiny={destiny} />
+      <DestinyDescriptions descriptions={destiny.descriptions} />
+      <DestinyFooter
+        destiny={destiny}
+        onUpdate={() => updateDestiny(destiny.name)}
+      />
     </Box>
   );
 }
 
 const styles = {
-  img: {
-    width: "100%",
-    height: "250px",
-    backgroundSize: "cover",
-    borderRadius: "10px",
+  destiny: {
+    width: "60%",
+    background: "#F1FBF4",
+    margin: "20px 0",
+    padding: "30px 30px 30px",
+    borderRadius: "50px",
+    overflowY: "scroll",
   },
 };

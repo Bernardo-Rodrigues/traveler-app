@@ -9,16 +9,7 @@ export default function DashboardSection() {
   const { user } = contexts.user;
 
   return (
-    <Box
-      sx={{
-        flex: 3,
-        background: "#F1FBF4",
-        margin: "20px 0",
-        padding: "30px",
-        borderRadius: "50px",
-        width: "60%",
-      }}
-    >
+    <Box sx={styles.dashboard}>
       <Typography
         variant="h4"
         fontWeight="bold"
@@ -31,3 +22,13 @@ export default function DashboardSection() {
     </Box>
   );
 }
+
+const styles = {
+  dashboard: {
+    background: "#F1FBF4",
+    margin: "20px 0",
+    padding: "30px",
+    borderRadius: "50px",
+    width: "60%",
+  },
+};

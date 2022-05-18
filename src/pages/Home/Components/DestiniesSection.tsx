@@ -1,7 +1,6 @@
 import { List, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import { useNavigate } from "react-router";
 import useDestinies from "../../../shared/hooks/api/useDestinies";
 import useContexts from "../../../shared/hooks/useContexts";
 import { fireAlert } from "../../../shared/utils/alerts";
@@ -22,27 +21,8 @@ export default function DestiniesSection() {
 
   if ((loadingDestinies && !destinies) || !destinies) {
     return (
-      <Box
-        sx={{
-          flex: 3,
-          background: "#F1FBF4",
-          margin: "20px 0",
-          padding: "0px 30px 30px",
-          borderRadius: "50px",
-        }}
-      >
-        <Typography
-          variant="h3"
-          sx={{
-            fontWeight: "bold",
-            marginBottom: "15px",
-            padding: "20px 0",
-            position: "sticky",
-            top: "0px",
-            zIndex: "1",
-            background: "#F1FBF4",
-          }}
-        >
+      <Box sx={styles.destinies}>
+        <Typography variant="h3" sx={styles.title}>
           Destinies
         </Typography>
         Loading...
@@ -51,28 +31,8 @@ export default function DestiniesSection() {
   }
 
   return (
-    <Box
-      sx={{
-        flex: 3,
-        background: "#F1FBF4",
-        margin: "20px 0",
-        padding: "0px 30px 30px",
-        borderRadius: "50px",
-        overflowY: "scroll",
-      }}
-    >
-      <Typography
-        variant="h3"
-        sx={{
-          fontWeight: "bold",
-          marginBottom: "15px",
-          padding: "20px 0",
-          position: "sticky",
-          top: "0px",
-          zIndex: "1",
-          background: "#F1FBF4",
-        }}
-      >
+    <Box sx={styles.destinies}>
+      <Typography variant="h3" sx={styles.title}>
         Destinies
       </Typography>
       <List>
@@ -83,3 +43,23 @@ export default function DestiniesSection() {
     </Box>
   );
 }
+
+const styles = {
+  destinies: {
+    width: "60%",
+    background: "#F1FBF4",
+    margin: "20px 0",
+    padding: "0px 30px 30px",
+    borderRadius: "50px",
+    overflowY: "scroll",
+  },
+  title: {
+    fontWeight: "bold",
+    marginBottom: "15px",
+    padding: "20px 0",
+    position: "sticky",
+    top: "0px",
+    zIndex: "1",
+    background: "#F1FBF4",
+  },
+};
