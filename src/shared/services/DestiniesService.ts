@@ -19,4 +19,7 @@ export default class DestiniesService {
   unfavorite(destinyId: number, headers: any) {
     return api.post(`/destinies/${destinyId}/unfavorite`, {}, headers);
   }
+  addTravel(destinyId: number, body: any, headers: any) {
+    return api.post(`/destinies/${destinyId}/travel`, body, headers);
+  }
 }

@@ -26,17 +26,21 @@ import useAddFavorites from "../../../shared/hooks/api/useAddFavorites";
 import useHeaders from "../../../shared/hooks/useHeaders";
 import useRemoveFavorites from "../../../shared/hooks/api/useRemoveFavorites";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
+import useAddTravel from "../../../shared/hooks/api/useAddTravel";
+import dayjs from "dayjs";
 
 export default function DestinySection() {
   const { destiny, loadingDestiny, getDestinyError, updateDestiny } =
     useDestiny();
   const { addFavorite, addFavoriteError } = useAddFavorites();
+  const { addTravel, addTravelError, addTravelSuccess } = useAddTravel();
   const { removeFavorite, removeFavoriteError } = useRemoveFavorites();
   const navigate = useNavigate();
   const contexts = useContexts();
   const { logout } = contexts.user;
-  const [initialDate, setInitialDate] = useState<Date | null>(null);
-  const [finalDate, setFinalDate] = useState<Date | null>(null);
+  const { setMessage } = contexts.alert;
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
   const [rating, setRating] = useState<number | null>(0);
   const headers = useHeaders();
 
@@ -47,6 +51,13 @@ export default function DestinySection() {
     }
     //eslint-disable-next-line
   }, [getDestinyError]);
+
+  useEffect(() => {
+    if (addTravelSuccess) {
+      return setMessage({ type: "success", text: "The trip has been booked" });
+    }
+    //eslint-disable-next-line
+  }, [addTravelSuccess]);
 
   useEffect(() => {
     if (addFavoriteError) {
@@ -64,6 +75,14 @@ export default function DestinySection() {
     //eslint-disable-next-line
   }, [removeFavoriteError]);
 
+  useEffect(() => {
+    if (addTravelError) {
+      fireAlert(addTravelError.data);
+      if (addTravelError.status === 401) logout();
+    }
+    //eslint-disable-next-line
+  }, [addTravelError]);
+
   async function handleFavoriteButton(destinyId: number, destinyName: string) {
     await addFavorite(destinyId, headers);
     updateDestiny(destinyName);
@@ -75,6 +94,15 @@ export default function DestinySection() {
   ) {
     await removeFavorite(destinyId, headers);
     updateDestiny(destinyName);
+  }
+
+  async function handleBooking(destinyId: number) {
+    if (!startDate || !endDate)
+      return setMessage({ type: "error", text: "Both dates must be informed" });
+    if (dayjs(startDate).isAfter(endDate))
+      return setMessage({ type: "error", text: "Dates are invalid" });
+
+    await addTravel(destinyId, { startDate, endDate }, headers);
   }
 
   if ((loadingDestiny && !destiny) || !destiny) {
@@ -215,22 +243,26 @@ export default function DestinySection() {
           <LocalizationProvider dateAdapter={AdapterDateFns}>
             <DatePicker
               label="Initial date"
-              value={initialDate}
+              value={startDate}
               onChange={(newValue) => {
-                setInitialDate(newValue);
+                setStartDate(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
             <DatePicker
               label="Final date"
-              value={finalDate}
+              value={endDate}
               onChange={(newValue) => {
-                setFinalDate(newValue);
+                setEndDate(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
-          <Button variant="contained" startIcon={<EventIcon />}>
+          <Button
+            variant="contained"
+            startIcon={<EventIcon />}
+            onClick={() => handleBooking(destiny.id)}
+          >
             Book now
           </Button>
         </Box>

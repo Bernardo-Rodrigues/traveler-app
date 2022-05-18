@@ -35,11 +35,11 @@ export default function SignUp() {
     event.preventDefault();
 
     if (password !== confirmPassword) {
-      setMessage({ type: "error", text: "As senhas precisam coincidir" });
+      setMessage({ type: "error", text: "Password must be the same" });
       setPasswordError(true);
       return;
     } else if (!avatarId) {
-      setMessage({ type: "error", text: "Selecione um avatar" });
+      setMessage({ type: "error", text: "Select an avatar" });
       return;
     } else setPasswordError(false);
 
