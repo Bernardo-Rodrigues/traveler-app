@@ -19,7 +19,8 @@ export default function SignIn() {
   const navigate = useNavigate();
   const contexts = useContexts();
   const { auth, login } = contexts.user;
-  const { setCurrentTravel } = contexts.currentTravel;
+  const { currentTravel, setCurrentTravel } = contexts.currentTravel;
+  const { setHaveAchievement } = contexts.achievement;
   const [values, setValues] = useState<FormInterface>({
     email: "",
     password: "",
@@ -41,8 +42,16 @@ export default function SignIn() {
     if (auth) {
       navigate("/");
     } else if (authData) {
-      if (authData.currentTravel) setCurrentTravel(authData.currentTravel);
-      else setCurrentTravel(null);
+      if (
+        currentTravel &&
+        (!authData.currentTravel ||
+          authData.currentTravel.id !== currentTravel.id)
+      ) {
+        setHaveAchievement(currentTravel.destinyId);
+      } else {
+        if (authData.currentTravel) setCurrentTravel(authData.currentTravel);
+        else setCurrentTravel(null);
+      }
       login(authData);
       navigate("/");
     }
