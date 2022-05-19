@@ -6,6 +6,10 @@ import {
   ScheduleContext,
   ScheduleContextType,
 } from "../contexts/ScheduleContext";
+import {
+  CurrentTravelContext,
+  CurrentTravelContextType,
+} from "../contexts/CurrentTravel";
 
 export default function useContexts() {
   return {
@@ -13,5 +17,6 @@ export default function useContexts() {
     user: useContext(UserContext) as UserContextType,
     section: useContext(SectionContext) as SectionContextType,
     schedule: useContext(ScheduleContext) as ScheduleContextType,
+    currentTravel: useContext(CurrentTravelContext) as CurrentTravelContextType,
   };
 }
