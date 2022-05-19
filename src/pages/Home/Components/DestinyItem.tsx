@@ -52,7 +52,7 @@ export default function DestinyItem({ destiny, size }: Props) {
           <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />
           {destiny.localization}
           <StarBorderOutlinedIcon sx={styles.starIcon} />
-          {destiny.score}
+          {destiny.score.toFixed(2)}
         </Typography>
       </ListItemText>
 

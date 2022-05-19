@@ -33,7 +33,7 @@ export default function FavoritesDestination({ destination }: Props) {
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "5%", color: "#FF8344", width: "20px" }}
           />
-          {destination.score}
+          {destination.score.toFixed(2)}
         </Typography>
       </Box>
     </ListItem>
