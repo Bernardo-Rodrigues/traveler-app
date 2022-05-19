@@ -1,4 +1,5 @@
 import AlertProvider from "./AlertContext";
+import CurrentTravelProvider from "./CurrentTravel";
 import ScheduleProvider from "./ScheduleContext";
 import SectionProvider from "./SectionContext";
 import UserProvider from "./UserContext";
@@ -12,7 +13,9 @@ export default function GlobalProvider({ children }: Props) {
     <UserProvider>
       <AlertProvider>
         <SectionProvider>
-          <ScheduleProvider> {children} </ScheduleProvider>
+          <ScheduleProvider>
+            <CurrentTravelProvider> {children} </CurrentTravelProvider>
+          </ScheduleProvider>
         </SectionProvider>
       </AlertProvider>
     </UserProvider>

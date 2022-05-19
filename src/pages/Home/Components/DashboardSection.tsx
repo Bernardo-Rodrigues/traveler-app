@@ -2,11 +2,13 @@ import { Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
 import FavoritesSection from "./FavoritesSection";
+import Tips from "./Tips";
 import TopDestinationsSection from "./TopDestinationsSection";
 
 export default function DashboardSection() {
   const contexts = useContexts();
   const { user } = contexts.user;
+  const { currentTravel } = contexts.currentTravel;
 
   return (
     <Box sx={styles.dashboard}>
@@ -18,7 +20,7 @@ export default function DashboardSection() {
         Welcome back and explore the world.
       </Typography>
       <FavoritesSection />
-      <TopDestinationsSection />
+      {currentTravel ? <Tips /> : <TopDestinationsSection />}
     </Box>
   );
 }
