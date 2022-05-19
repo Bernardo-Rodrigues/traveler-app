@@ -1,10 +1,13 @@
 import { Button, Rating, Box, Typography } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import FavoriteButton from "./FavoriteButton";
 import useReceiveAchievement from "../../../shared/hooks/api/useReceiveAchievement";
 import useHeaders from "../../../shared/hooks/useHeaders";
 import AchievementModal from "./AchievementModal";
+import useAddReview from "../../../shared/hooks/api/useMakeReview";
+import { fireAlert } from "../../../shared/utils/alerts";
+import useContexts from "../../../shared/hooks/useContexts";
 
 interface Props {
   destiny: any;
@@ -14,12 +17,31 @@ interface Props {
 export default function DestinyAssessments({ destiny, onUpdate }: Props) {
   const [rating, setRating] = useState<number | null>(0);
   const { achievement, receiveAchievement } = useReceiveAchievement();
+  const { addReview, addReviewError } = useAddReview();
   const headers = useHeaders();
+  const contexts = useContexts();
+  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
 
   async function handleNewAchievement() {
     await receiveAchievement(destiny.id, headers);
     onUpdate();
   }
+
+  async function handleRating(newValue: number | null) {
+    setRating(newValue);
+    await addReview({ note: newValue }, destiny.id, headers);
+    setMessage({ type: "success", text: "The review has been sent" });
+    onUpdate();
+  }
+
+  useEffect(() => {
+    if (addReviewError) {
+      fireAlert(addReviewError.data);
+      if (addReviewError.status === 401) logout();
+    }
+    //eslint-disable-next-line
+  }, [addReviewError]);
 
   return (
     <Box sx={styles.assessments}>
@@ -47,7 +69,7 @@ export default function DestinyAssessments({ destiny, onUpdate }: Props) {
           <Rating
             value={rating}
             onChange={(event, newValue) => {
-              setRating(newValue);
+              handleRating(newValue);
             }}
           />
         </Box>

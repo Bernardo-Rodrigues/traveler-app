@@ -1,7 +1,7 @@
 import useAsync from "../useAsync";
-import AchiecementsService from "../../services/AchiecementsService";
+import AchievementsService from "../../services/AchievementsService";
 
-const service = new AchiecementsService();
+const service = new AchievementsService();
 
 export default function useReceiveAchievement() {
   const { data, error, loading, act } = useAsync(service.receive, false);

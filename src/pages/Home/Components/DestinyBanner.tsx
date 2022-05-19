@@ -30,7 +30,7 @@ export default function DestinyBanner({ destiny }: Props) {
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "25px", color: "#FF8344" }}
           />
-          {destiny.score}
+          {destiny.score.toFixed(2)}
         </Typography>
       </Box>
     </Box>
