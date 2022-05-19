@@ -7,19 +7,33 @@ import LeftMenu from "./Components/LeftMenu";
 import DashboardSection from "./Components/DashboardSection";
 import RightMenu from "./Components/RightMenu";
 import DestinySection from "./Components/DestinySection";
+import AchievementModal from "./Components/AchievementModal";
+import useReceiveAchievement from "../../shared/hooks/api/useReceiveAchievement";
+import useHeaders from "../../shared/hooks/useHeaders";
 
 export default function Home() {
   const navigate = useNavigate();
   const contexts = useContexts();
+  const { achievement, receiveAchievement } = useReceiveAchievement();
   const { auth } = contexts.user;
   const { section } = contexts.section;
+  const { haveAchievement, setHaveAchievement } = contexts.achievement;
+  const headers = useHeaders();
 
   useEffect(() => {
     if (!auth) {
-      navigate("/sign-in");
+      return navigate("/sign-in");
     }
     //eslint-disable-next-line
   }, []);
+
+  useEffect(() => {
+    if (typeof haveAchievement === "number") {
+      receiveAchievement(haveAchievement, headers);
+      setHaveAchievement(null);
+    }
+    //eslint-disable-next-line
+  }, [haveAchievement]);
 
   if (!auth) return null;
   if (section.length === 0) return null;
@@ -40,6 +54,7 @@ export default function Home() {
       ) : (
         <DestinySection />
       )}
+      {achievement && <AchievementModal achievement={achievement} />}
       <RightMenu />
     </Box>
   );
