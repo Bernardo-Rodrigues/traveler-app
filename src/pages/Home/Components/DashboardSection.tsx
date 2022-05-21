@@ -8,7 +8,7 @@ import TopDestinationsSection from "./TopDestinationsSection";
 export default function DashboardSection() {
   const contexts = useContexts();
   const { user } = contexts.user;
-  const { currentTravel } = contexts.currentTravel;
+  const { currentTrip } = contexts.currentTrip;
 
   return (
     <Box sx={styles.dashboard}>
@@ -20,7 +20,7 @@ export default function DashboardSection() {
         Welcome back and explore the world.
       </Typography>
       <FavoritesSection />
-      {currentTravel ? <Tips /> : <TopDestinationsSection />}
+      {currentTrip ? <Tips /> : <TopDestinationsSection />}
     </Box>
   );
 }

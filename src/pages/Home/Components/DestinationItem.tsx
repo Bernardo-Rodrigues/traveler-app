@@ -11,19 +11,19 @@ import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 
-interface Destiny {
+interface Destination {
   name: string;
-  localization: string;
+  localization: any;
   imageLink: string;
   score: number;
 }
 
 interface Props {
-  destiny: Destiny;
+  destination: Destination;
   size: string;
 }
 
-export default function DestinyItem({ destiny, size }: Props) {
+export default function DestinationItem({ destination, size }: Props) {
   const navigate = useNavigate();
   const listItem = {
     ...styles.listItem,
@@ -35,7 +35,7 @@ export default function DestinyItem({ destiny, size }: Props) {
       <ListItemAvatar>
         <Avatar
           alt="Avatar"
-          src={destiny.imageLink}
+          src={destination.imageLink}
           sx={size === "small" ? styles.smallAvatar : styles.bigAvatar}
         />
       </ListItemAvatar>
@@ -46,23 +46,23 @@ export default function DestinyItem({ destiny, size }: Props) {
           fontWeight="bold"
           sx={size === "small" ? styles.smallTypography : styles.bigTypography}
         >
-          {destiny.name}
+          {destination.name}
         </Typography>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
           <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />
-          {destiny.localization}
+          {destination.localization.name}
           <StarBorderOutlinedIcon sx={styles.starIcon} />
-          {destiny.score.toFixed(2)}
+          {destination.score.toFixed(2)}
         </Typography>
       </ListItemText>
 
       <Button
         variant="contained"
         startIcon={<SearchIcon />}
-        onClick={() => navigate(`/destinies/${destiny.name}`)}
+        onClick={() => navigate(`/destinations/${destination.name}`)}
         sx={styles.button}
       >
-        Explore this destiny
+        Explore this destination
       </Button>
     </ListItem>
   );

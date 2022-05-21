@@ -1,11 +1,11 @@
 import useAsync from "../useAsync";
-import DestiniesService from "../../services/DestiniesService";
+import DestinationsService from "../../services/DestinationsService";
 import useHeaders from "../useHeaders";
 import useContexts from "../useContexts";
 
-const service = new DestiniesService();
+const service = new DestinationsService();
 
-export default function useDestiny() {
+export default function useGetDestination() {
   const headers = useHeaders();
   const contexts = useContexts();
   const { section } = contexts.section;
@@ -18,10 +18,10 @@ export default function useDestiny() {
   };
 
   return {
-    destiny: data,
-    loadingDestiny: loading,
-    getDestiny: act,
-    getDestinyError: error,
-    updateDestiny: update,
+    destination: data,
+    loadingDestination: loading,
+    getDestination: act,
+    getDestinationError: error,
+    updateDestination: update,
   };
 }

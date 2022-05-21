@@ -7,9 +7,9 @@ import {
   ScheduleContextType,
 } from "../contexts/ScheduleContext";
 import {
-  CurrentTravelContext,
-  CurrentTravelContextType,
-} from "../contexts/CurrentTravel";
+  CurrentTripContext,
+  CurrentTripContextType,
+} from "../contexts/CurrentTrip";
 import {
   AchievementContext,
   AchievementContextType,
@@ -21,7 +21,7 @@ export default function useContexts() {
     user: useContext(UserContext) as UserContextType,
     section: useContext(SectionContext) as SectionContextType,
     schedule: useContext(ScheduleContext) as ScheduleContextType,
-    currentTravel: useContext(CurrentTravelContext) as CurrentTravelContextType,
+    currentTrip: useContext(CurrentTripContext) as CurrentTripContextType,
     achievement: useContext(AchievementContext) as AchievementContextType,
   };
 }

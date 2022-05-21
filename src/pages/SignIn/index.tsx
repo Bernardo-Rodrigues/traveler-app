@@ -19,7 +19,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const contexts = useContexts();
   const { auth, login } = contexts.user;
-  const { currentTravel, setCurrentTravel } = contexts.currentTravel;
+  const { currentTrip, setCurrentTrip } = contexts.currentTrip;
   const { setHaveAchievement } = contexts.achievement;
   const [values, setValues] = useState<FormInterface>({
     email: "",
@@ -43,14 +43,14 @@ export default function SignIn() {
       navigate("/");
     } else if (authData) {
       if (
-        currentTravel &&
-        (!authData.currentTravel ||
-          authData.currentTravel.id !== currentTravel.id)
+        currentTrip &&
+        (!authData.currentTrip || authData.currentTravel.id !== currentTrip.id)
       ) {
-        setHaveAchievement(currentTravel.destinyId);
+        if (authData.currentTravel) setCurrentTrip(authData.currentTrip);
+        setHaveAchievement(currentTrip.destinyId);
       } else {
-        if (authData.currentTravel) setCurrentTravel(authData.currentTravel);
-        else setCurrentTravel(null);
+        if (authData.currentTrip) setCurrentTrip(authData.currentTrip);
+        else setCurrentTrip(null);
       }
       login(authData);
       navigate("/");

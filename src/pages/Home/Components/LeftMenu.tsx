@@ -7,6 +7,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import useContexts from "../../../shared/hooks/useContexts";
 import { useNavigate } from "react-router";
 import { LeftMenuButton } from "../../../shared/styles/themes";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 
 export default function LeftMenu() {
   const navigate = useNavigate();
@@ -28,11 +29,19 @@ export default function LeftMenu() {
         </LeftMenuButton>
         <LeftMenuButton
           startIcon={<TravelExploreIcon />}
-          color={section === "destinies" ? "primary" : "secondary"}
+          color={section === "destinations" ? "primary" : "secondary"}
           variant="contained"
-          onClick={() => navigate("/destinies")}
+          onClick={() => navigate("/destinations")}
         >
-          Destinies
+          Destinations
+        </LeftMenuButton>
+        <LeftMenuButton
+          startIcon={<WorkspacePremiumIcon />}
+          color={section === "achievements" ? "primary" : "secondary"}
+          variant="contained"
+          onClick={() => navigate("/achievements")}
+        >
+          Achievements
         </LeftMenuButton>
       </Box>
       <LeftMenuButton
@@ -60,8 +69,9 @@ const styles = {
   menuButtons: {
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     gap: "20px",
     width: "100%",
-    marginTop: "-60vh",
+    marginTop: "-48vh",
   },
 };

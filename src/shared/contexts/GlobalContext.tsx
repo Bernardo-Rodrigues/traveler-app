@@ -1,6 +1,6 @@
 import AchievementProvider from "./AchievementContext";
 import AlertProvider from "./AlertContext";
-import CurrentTravelProvider from "./CurrentTravel";
+import CurrentTripProvider from "./CurrentTrip";
 import ScheduleProvider from "./ScheduleContext";
 import SectionProvider from "./SectionContext";
 import UserProvider from "./UserContext";
@@ -16,7 +16,7 @@ export default function GlobalProvider({ children }: Props) {
         <AlertProvider>
           <SectionProvider>
             <ScheduleProvider>
-              <CurrentTravelProvider> {children} </CurrentTravelProvider>
+              <CurrentTripProvider> {children} </CurrentTripProvider>
             </ScheduleProvider>
           </SectionProvider>
         </AlertProvider>

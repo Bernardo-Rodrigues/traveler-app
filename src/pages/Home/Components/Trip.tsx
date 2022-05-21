@@ -11,10 +11,10 @@ interface Props {
 export default function Trip({ trip }: Props) {
   return (
     <ListItem sx={styles.listItem}>
-      <SmallAvatar alt="Destination" src={trip.destiny.imageLink} />
+      <SmallAvatar alt="Destination" src={trip.destination.imageLink} />
       <Box>
         <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
-          {trip.destiny.name}
+          {trip.destination.name}
         </Typography>
         <Typography sx={styles.typography}>
           <DateRangeIcon />
