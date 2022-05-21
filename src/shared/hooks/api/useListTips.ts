@@ -8,9 +8,9 @@ const service = new TravelsService();
 export default function useListTips() {
   const headers = useHeaders();
   const contexts = useContexts();
-  const { currentTravel } = contexts.currentTravel;
+  const { currentTrip } = contexts.currentTrip;
   const { data, loading, act, error } = useAsync(() =>
-    service.listTips(currentTravel.destinyId, headers)
+    service.listTips(currentTrip.destinyId, headers)
   );
 
   return {

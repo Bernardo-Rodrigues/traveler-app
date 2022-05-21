@@ -1,29 +1,30 @@
 import { List, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect } from "react";
-import useDestinies from "../../../shared/hooks/api/useDestinies";
+import useListDestinations from "../../../shared/hooks/api/useListDestinations";
 import useContexts from "../../../shared/hooks/useContexts";
 import { fireAlert } from "../../../shared/utils/alerts";
-import DestinyItem from "./DestinyItem";
+import DestinationItem from "./DestinationItem";
 
-export default function DestiniesSection() {
-  const { destinies, loadingDestinies, listingDestiniesError } = useDestinies();
+export default function DestinationsSection() {
+  const { destinations, loadingDestinations, listingDestinationsError } =
+    useListDestinations();
   const contexts = useContexts();
   const { logout } = contexts.user;
 
   useEffect(() => {
-    if (listingDestiniesError) {
-      fireAlert(listingDestiniesError.data);
-      if (listingDestiniesError.status === 401) logout();
+    if (listingDestinationsError) {
+      fireAlert(listingDestinationsError.data);
+      if (listingDestinationsError.status === 401) logout();
     }
     //eslint-disable-next-line
-  }, [listingDestiniesError]);
+  }, [listingDestinationsError]);
 
-  if ((loadingDestinies && !destinies) || !destinies) {
+  if ((loadingDestinations && !destinations) || !destinations) {
     return (
-      <Box sx={styles.destinies}>
+      <Box sx={styles.destinations}>
         <Typography variant="h3" sx={styles.title}>
-          Destinies
+          Destination
         </Typography>
         Loading...
       </Box>
@@ -31,13 +32,13 @@ export default function DestiniesSection() {
   }
 
   return (
-    <Box sx={styles.destinies}>
+    <Box sx={styles.destinations}>
       <Typography variant="h3" sx={styles.title}>
-        Destinies
+        Destinations
       </Typography>
       <List>
-        {destinies.map((destiny: any, i: number) => (
-          <DestinyItem key={i} size="big" destiny={destiny} />
+        {destinations.map((destination: any, i: number) => (
+          <DestinationItem key={i} size="big" destination={destination} />
         ))}
       </List>
     </Box>
@@ -45,7 +46,7 @@ export default function DestiniesSection() {
 }
 
 const styles = {
-  destinies: {
+  destinations: {
     width: "60%",
     background: "#F1FBF4",
     margin: "20px 0",

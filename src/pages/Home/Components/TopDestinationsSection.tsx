@@ -4,24 +4,27 @@ import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import { useEffect } from "react";
 import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
-import useTopDestinies from "../../../shared/hooks/api/useTopDestinies";
-import DestinyItem from "./DestinyItem";
+import useTopDestinations from "../../../shared/hooks/api/useTopDestinations";
+import DestinationItem from "./DestinationItem";
 
 export default function TopDestinationsSection() {
   const contexts = useContexts();
   const { logout } = contexts.user;
-  const { topDestinies, loadingTopDestinies, listingTopDestiniesError } =
-    useTopDestinies();
+  const {
+    topDestinations,
+    loadingTopDestinations,
+    listingTopDestinationsError,
+  } = useTopDestinations();
 
   useEffect(() => {
-    if (listingTopDestiniesError) {
-      fireAlert(listingTopDestiniesError.data);
-      if (listingTopDestiniesError.status === 401) logout();
+    if (listingTopDestinationsError) {
+      fireAlert(listingTopDestinationsError.data);
+      if (listingTopDestinationsError.status === 401) logout();
     }
     //eslint-disable-next-line
-  }, [listingTopDestiniesError]);
+  }, [listingTopDestinationsError]);
 
-  if ((loadingTopDestinies && !topDestinies) || !topDestinies) {
+  if ((loadingTopDestinations && !topDestinations) || !topDestinations) {
     return <div>loading...</div>;
   }
 
@@ -32,8 +35,8 @@ export default function TopDestinationsSection() {
         <LeaderboardIcon sx={{ color: "#2ED29B" }} />
       </Typography>
       <List sx={styles.list}>
-        {topDestinies.map((destiny: any, i: number) => (
-          <DestinyItem key={i} size="small" destiny={destiny} />
+        {topDestinations.map((destination: any, i: number) => (
+          <DestinationItem key={i} size="small" destination={destination} />
         ))}
       </List>
     </Box>

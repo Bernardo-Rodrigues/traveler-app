@@ -14,11 +14,12 @@ export default function FavoritesDestination({ destination }: Props) {
     ...styles.listItem,
     backgroundImage: `url(${destination.imageLink})`,
   };
+  console.log(destination);
 
   return (
     <ListItem
       sx={listItem}
-      onClick={() => navigate(`/destinies/${destination.name}`)}
+      onClick={() => navigate(`/destinations/${destination.name}`)}
     >
       <Box sx={styles.overlay}>
         <Typography
@@ -29,7 +30,7 @@ export default function FavoritesDestination({ destination }: Props) {
         </Typography>
         <Typography sx={styles.typography}>
           <LocationOnOutlinedIcon sx={{ width: "20px", color: "#FF8344" }} />{" "}
-          {destination.localization}
+          {destination.localization.name}
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "5%", color: "#FF8344", width: "20px" }}
           />

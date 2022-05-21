@@ -1,7 +1,7 @@
 import useAsync from "../useAsync";
-import DestiniesService from "../../services/DestiniesService";
+import DestinationsService from "../../services/DestinationsService";
 
-const service = new DestiniesService();
+const service = new DestinationsService();
 
 export default function useAddFavorites() {
   const { error, loading, act } = useAsync(service.favorite, false);

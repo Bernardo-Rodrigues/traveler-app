@@ -4,7 +4,7 @@ interface Props {
   descriptions: any[];
 }
 
-export default function DestinyDescriptions({ descriptions }: Props) {
+export default function DestinationDescriptions({ descriptions }: Props) {
   return (
     <>
       <List>

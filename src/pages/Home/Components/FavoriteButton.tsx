@@ -9,19 +9,22 @@ import useRemoveFavorites from "../../../shared/hooks/api/useRemoveFavorites";
 import BookmarkRemoveIcon from "@mui/icons-material/BookmarkRemove";
 
 interface Props {
-  destiny: any;
+  destination: any;
   onUpdate: () => void;
 }
 
-export default function FavoriteButton({ destiny, onUpdate }: Props) {
+export default function FavoriteButton({ destination, onUpdate }: Props) {
   const { addFavorite, addFavoriteError } = useAddFavorites();
   const { removeFavorite, removeFavoriteError } = useRemoveFavorites();
   const contexts = useContexts();
   const { logout } = contexts.user;
   const headers = useHeaders();
 
-  async function handleFavoriteButton(destinyId: number, destinyName: string) {
-    await addFavorite(destinyId, headers);
+  async function handleFavoriteButton(
+    destinationId: number,
+    destinationName: string
+  ) {
+    await addFavorite(destinationId, headers);
     onUpdate();
   }
 
@@ -34,10 +37,10 @@ export default function FavoriteButton({ destiny, onUpdate }: Props) {
   }, [addFavoriteError]);
 
   async function handleUnfavoriteButton(
-    destinyId: number,
-    destinyName: string
+    destinationId: number,
+    destinationName: string
   ) {
-    await removeFavorite(destinyId, headers);
+    await removeFavorite(destinationId, headers);
     onUpdate();
   }
 
@@ -54,19 +57,19 @@ export default function FavoriteButton({ destiny, onUpdate }: Props) {
       fullWidth
       variant="contained"
       startIcon={
-        destiny.favorited ? <BookmarkRemoveIcon /> : <BookmarkAddIcon />
+        destination.favorited ? <BookmarkRemoveIcon /> : <BookmarkAddIcon />
       }
       onClick={
-        destiny.favorited
+        destination.favorited
           ? () => {
-              handleUnfavoriteButton(destiny.id, destiny.name);
+              handleUnfavoriteButton(destination.id, destination.name);
             }
           : () => {
-              handleFavoriteButton(destiny.id, destiny.name);
+              handleFavoriteButton(destination.id, destination.name);
             }
       }
     >
-      {destiny.favorited ? "Remove from favorites" : "Add to favorites"}
+      {destination.favorited ? "Remove from favorites" : "Add to favorites"}
     </Button>
   );
 }

@@ -20,7 +20,7 @@ export default function NoFavorites() {
         <LeftMenuButton
           variant="contained"
           startIcon={<TravelExploreIcon />}
-          onClick={() => navigate("/destinies")}
+          onClick={() => navigate("/destinations")}
         >
           Lets explore the world
         </LeftMenuButton>

@@ -2,14 +2,15 @@ import { Box } from "@mui/system";
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import useContexts from "../../shared/hooks/useContexts";
-import DestiniesSection from "./Components/DestiniesSection";
+import DestinationsSection from "./Components/DestinationsSection";
 import LeftMenu from "./Components/LeftMenu";
 import DashboardSection from "./Components/DashboardSection";
 import RightMenu from "./Components/RightMenu";
-import DestinySection from "./Components/DestinySection";
+import DestinationSection from "./Components/DestinationSection";
 import AchievementModal from "./Components/AchievementModal";
 import useReceiveAchievement from "../../shared/hooks/api/useReceiveAchievement";
 import useHeaders from "../../shared/hooks/useHeaders";
+import AchievementsSection from "./Components/AchievementsSection";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -49,10 +50,12 @@ export default function Home() {
       <LeftMenu />
       {section === "dashboard" ? (
         <DashboardSection />
-      ) : section === "destinies" ? (
-        <DestiniesSection />
+      ) : section === "destinations" ? (
+        <DestinationsSection />
+      ) : section === "achievements" ? (
+        <AchievementsSection />
       ) : (
-        <DestinySection />
+        <DestinationSection />
       )}
       {achievement && <AchievementModal achievement={achievement} />}
       <RightMenu />

@@ -10,7 +10,7 @@ interface Props {
 
 export default function TabPanel({ value, index, tip, first }: Props) {
   const contexts = useContexts();
-  const { currentTravel } = contexts.currentTravel;
+  const { currentTrip } = contexts.currentTrip;
 
   return (
     <div role="tabpanel" hidden={value !== index}>
@@ -30,11 +30,11 @@ export default function TabPanel({ value, index, tip, first }: Props) {
           />
           <Typography fontWeight="bold" textAlign="center">
             {first
-              ? `Looks like you're on a trip to ${currentTravel.destiny.name}, are you up for some tips ?`
+              ? `Looks like you're on a trip to ${currentTrip.destination.name}, are you up for some tips ?`
               : tip.description}
           </Typography>
           <Avatar
-            src="https://hjjvsmpqvznxkydtrqzo.supabase.co/storage/v1/object/public/destinies/Machu-Picchu.jpg"
+            src={currentTrip.destination.imageLink}
             sx={{ width: "150px", height: "150px" }}
           />
         </Box>

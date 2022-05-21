@@ -10,8 +10,9 @@ export default function AppRoutes() {
       <Route path="/sign-up" element={<SignUp />} />
       <Route path="/sign-in" element={<SignIn />} />
       <Route path="/dashboard" element={<Home />} />
-      <Route path="/destinies" element={<Home />} />
-      <Route path="/destinies/:name" element={<Home />} />
+      <Route path="/destinations" element={<Home />} />
+      <Route path="/destinations/:name" element={<Home />} />
+      <Route path="/achievements" element={<Home />} />
       <Route path="*" element={<Navigate to="/dashboard" />} />
     </Routes>
   );

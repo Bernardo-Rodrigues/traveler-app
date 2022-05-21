@@ -12,10 +12,10 @@ import dayjs from "dayjs";
 import useListUpcomingTrips from "../../../shared/hooks/api/useListUpcomingTrips";
 
 interface Props {
-  destiny: any;
+  destination: any;
 }
 
-export default function DestinyBooking({ destiny }: Props) {
+export default function DestinationBooking({ destination }: Props) {
   const { addTravel, addTravelError, addTravelSuccess } = useAddTravel();
   const contexts = useContexts();
   const { logout } = contexts.user;
@@ -41,13 +41,13 @@ export default function DestinyBooking({ destiny }: Props) {
     //eslint-disable-next-line
   }, [addTravelError]);
 
-  async function handleBooking(destinyId: number) {
+  async function handleBooking(destinationId: number) {
     if (!startDate || !endDate)
       return setMessage({ type: "error", text: "Both dates must be informed" });
     if (dayjs(startDate).isAfter(endDate))
       return setMessage({ type: "error", text: "Dates are invalid" });
 
-    await addTravel(destinyId, { startDate, endDate }, headers);
+    await addTravel(destinationId, { startDate, endDate }, headers);
   }
 
   return (
@@ -73,7 +73,7 @@ export default function DestinyBooking({ destiny }: Props) {
       <Button
         variant="contained"
         startIcon={<EventIcon />}
-        onClick={() => handleBooking(destiny.id)}
+        onClick={() => handleBooking(destination.id)}
       >
         Book now
       </Button>

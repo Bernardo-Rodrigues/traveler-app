@@ -5,32 +5,32 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import { useNavigate } from "react-router";
 
 interface Props {
-  destiny: any;
+  destination: any;
 }
 
-export default function DestinyBanner({ destiny }: Props) {
+export default function DestinationBanner({ destination }: Props) {
   const navigate = useNavigate();
 
   return (
     <Box sx={{ position: "relative", marginBottom: "50px" }}>
-      <img alt="destiny" src={destiny.imageLink} style={styles.img} />
+      <img alt="destination" src={destination.imageLink} style={styles.img} />
       <ArrowCircleLeftIcon
-        onClick={() => navigate("/destinies")}
+        onClick={() => navigate("/destinations")}
         sx={styles.arrow}
       />
       <Box sx={styles.overlay}>
         <Typography
           sx={{ margin: "0 0 5px 5px", fontWeight: "bold", fontSize: "25px" }}
         >
-          {destiny.name}
+          {destination.name}
         </Typography>
         <Typography sx={{ display: "flex", gap: "5px", alignItems: "center" }}>
           <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
-          {destiny.localization}
+          {destination.localization.name}
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "25px", color: "#FF8344" }}
           />
-          {destiny.score.toFixed(2)}
+          {destination.score.toFixed(2)}
         </Typography>
       </Box>
     </Box>

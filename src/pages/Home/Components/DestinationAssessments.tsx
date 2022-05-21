@@ -10,11 +10,14 @@ import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 
 interface Props {
-  destiny: any;
+  destination: any;
   onUpdate: () => void;
 }
 
-export default function DestinyAssessments({ destiny, onUpdate }: Props) {
+export default function DestinationAssessments({
+  destination,
+  onUpdate,
+}: Props) {
   const [rating, setRating] = useState<number | null>(0);
   const { achievement, receiveAchievement } = useReceiveAchievement();
   const { addReview, addReviewError } = useAddReview();
@@ -24,13 +27,13 @@ export default function DestinyAssessments({ destiny, onUpdate }: Props) {
   const { setMessage } = contexts.alert;
 
   async function handleNewAchievement() {
-    await receiveAchievement(destiny.id, headers);
+    await receiveAchievement(destination.id, headers);
     onUpdate();
   }
 
   async function handleRating(newValue: number | null) {
     setRating(newValue);
-    await addReview({ note: newValue }, destiny.id, headers);
+    await addReview({ note: newValue }, destination.id, headers);
     setMessage({ type: "success", text: "The review has been sent" });
     onUpdate();
   }
@@ -46,8 +49,8 @@ export default function DestinyAssessments({ destiny, onUpdate }: Props) {
   return (
     <Box sx={styles.assessments}>
       {achievement && <AchievementModal achievement={achievement} />}
-      <FavoriteButton destiny={destiny} onUpdate={onUpdate} />
-      {!destiny.visited ? (
+      <FavoriteButton destination={destination} onUpdate={onUpdate} />
+      {!destination.visited ? (
         <Button
           onClick={handleNewAchievement}
           variant="contained"
