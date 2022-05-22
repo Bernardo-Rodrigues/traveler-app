@@ -26,6 +26,8 @@ export default function AchievementModal({ achievement }: Props) {
   const [open, setOpen] = useState(true);
   const handleClose = () => setOpen(false);
 
+  if (!achievement) return <></>;
+
   return (
     <div>
       <Modal open={open}>

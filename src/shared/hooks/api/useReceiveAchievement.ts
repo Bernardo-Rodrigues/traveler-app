@@ -7,9 +7,9 @@ export default function useReceiveAchievement() {
   const { data, error, loading, act } = useAsync(service.receive, false);
 
   return {
-    receiveAchievementError: error,
-    loadingReceiveAchievement: loading,
-    receiveAchievement: act,
-    achievement: data,
+    receiveAchievementsError: error,
+    loadingReceiveAchievements: loading,
+    receiveAchievements: act,
+    achievements: data,
   };
 }

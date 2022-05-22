@@ -15,6 +15,7 @@ interface Auth {
 interface User {
   username: string;
   imageLink: string;
+  title: string;
 }
 
 export interface UserContextType {
@@ -22,6 +23,7 @@ export interface UserContextType {
   user: User;
   login: (userData: any) => void;
   logout: () => void;
+  setUser: any;
 }
 
 export const UserContext = createContext<UserContextType | null>(null);
@@ -32,9 +34,9 @@ export default function UserProvider({ children }: Props) {
   const navigate = useNavigate();
 
   function login(authData: any) {
-    const { token, username, imageLink } = authData;
+    const { token, username, imageLink, title } = authData;
     setAuth({ token });
-    setUser({ username, imageLink });
+    setUser({ username, imageLink, title });
   }
 
   function logout() {
@@ -44,7 +46,7 @@ export default function UserProvider({ children }: Props) {
   }
 
   return (
-    <UserContext.Provider value={{ auth, user, login, logout }}>
+    <UserContext.Provider value={{ auth, user, login, logout, setUser }}>
       {children}
     </UserContext.Provider>
   );

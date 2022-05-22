@@ -11,8 +11,8 @@ import useContexts from "../../hooks/useContexts";
 import Form from "../../interfaces/Form";
 
 interface Props {
-  values: Form;
-  setValues: (value: React.SetStateAction<Form>) => void;
+  values: any;
+  setValues: (value: React.SetStateAction<any>) => void;
 }
 
 export default function Avatars({ values, setValues }: Props) {

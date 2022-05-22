@@ -19,7 +19,7 @@ export default function DestinationAssessments({
   onUpdate,
 }: Props) {
   const [rating, setRating] = useState<number | null>(0);
-  const { achievement, receiveAchievement } = useReceiveAchievement();
+  const { achievements, receiveAchievements } = useReceiveAchievement();
   const { addReview, addReviewError } = useAddReview();
   const headers = useHeaders();
   const contexts = useContexts();
@@ -27,7 +27,7 @@ export default function DestinationAssessments({
   const { setMessage } = contexts.alert;
 
   async function handleNewAchievement() {
-    await receiveAchievement(destination.id, headers);
+    await receiveAchievements(destination.id, headers);
     onUpdate();
   }
 
@@ -37,7 +37,7 @@ export default function DestinationAssessments({
     setMessage({ type: "success", text: "The review has been sent" });
     onUpdate();
   }
-
+  console.log(achievements);
   useEffect(() => {
     if (addReviewError) {
       fireAlert(addReviewError.data);
@@ -48,7 +48,10 @@ export default function DestinationAssessments({
 
   return (
     <Box sx={styles.assessments}>
-      {achievement && <AchievementModal achievement={achievement} />}
+      {achievements &&
+        achievements.map((achievement: any, i: number) => (
+          <AchievementModal key={i} achievement={achievement} />
+        ))}
       <FavoriteButton destination={destination} onUpdate={onUpdate} />
       {!destination.visited ? (
         <Button

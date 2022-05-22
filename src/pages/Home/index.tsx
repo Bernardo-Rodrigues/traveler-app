@@ -15,7 +15,7 @@ import AchievementsSection from "./Components/AchievementsSection";
 export default function Home() {
   const navigate = useNavigate();
   const contexts = useContexts();
-  const { achievement, receiveAchievement } = useReceiveAchievement();
+  const { achievements, receiveAchievements } = useReceiveAchievement();
   const { auth } = contexts.user;
   const { section } = contexts.section;
   const { haveAchievement, setHaveAchievement } = contexts.achievement;
@@ -30,7 +30,7 @@ export default function Home() {
 
   useEffect(() => {
     if (typeof haveAchievement === "number") {
-      receiveAchievement(haveAchievement, headers);
+      receiveAchievements(haveAchievement, headers);
       setHaveAchievement(null);
     }
     //eslint-disable-next-line
@@ -57,7 +57,10 @@ export default function Home() {
       ) : (
         section !== "sign-up" && <DestinationSection />
       )}
-      {achievement && <AchievementModal achievement={achievement} />}
+      {achievements &&
+        achievements.map((achievement: any, i: number) => (
+          <AchievementModal key={i} achievement={achievement} />
+        ))}
       <RightMenu />
     </Box>
   );

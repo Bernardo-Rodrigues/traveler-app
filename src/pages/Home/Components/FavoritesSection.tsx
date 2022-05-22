@@ -1,4 +1,4 @@
-import { List, Typography, Avatar } from "@mui/material";
+import { List, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import FavoriteDestination from "./FavoriteDestination";

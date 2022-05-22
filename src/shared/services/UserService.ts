@@ -7,4 +7,7 @@ export default class UserService {
   signIn(data: any) {
     return api.post("/users/sign-in", data);
   }
+  edit(data: any, headers: any) {
+    return api.post("/users/edit", data, headers);
+  }
 }

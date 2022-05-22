@@ -16,6 +16,7 @@ export default function Form({ children, handleSubmit }: Props) {
         flexDirection: "column",
         gap: "20px",
         marginTop: "25px",
+        width: "100%",
       }}
     >
       {children}
