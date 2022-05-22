@@ -46,7 +46,7 @@ export default function DestinationBooking({ destination }: Props) {
     if (dayjs(startDate).isAfter(endDate))
       return setMessage({ type: "error", text: "Dates are invalid" });
 
-    await addTravel(destinationId, { startDate, endDate }, headers);
+    await addTravel({ destinationId, startDate, endDate }, headers);
   }
 
   return (

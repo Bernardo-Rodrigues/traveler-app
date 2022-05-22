@@ -1,9 +1,9 @@
 import useAsync from "../useAsync";
-import TravelsService from "../../services/TravelsService";
+import DestinationsService from "../../services/DestinationsService";
 import useHeaders from "../useHeaders";
 import useContexts from "../useContexts";
 
-const service = new TravelsService();
+const service = new DestinationsService();
 
 export default function useListTips() {
   const headers = useHeaders();
