@@ -7,8 +7,8 @@ export default class DestiniationsService {
   getAllFavorites(headers: any) {
     return api.get(`/destinations/favorites`, headers);
   }
-  getTop(headers: any) {
-    return api.get(`/destinations/top`, headers);
+  getTop(continent: string, headers: any) {
+    return api.get(`/destinations/top?continent=${continent}`, headers);
   }
   getOne(destinationName: string, headers: any) {
     return api.get(`/destinations/${destinationName}`, headers);

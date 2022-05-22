@@ -43,8 +43,7 @@ export default function FavoritesDestination({ destination }: Props) {
 const styles = {
   listItem: {
     position: "relative",
-    minWidth: "25%",
-    width: "230px",
+    minWidth: "23%",
     backgroundSize: "cover",
     borderRadius: "25px",
     border: "3px solid #2ED29B",
@@ -65,5 +64,6 @@ const styles = {
     gap: "3px",
     alignItems: "center",
     fontSize: "13px",
+    flexWrap: "wrap",
   },
 };
