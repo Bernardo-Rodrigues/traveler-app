@@ -14,7 +14,6 @@ export default function FavoritesDestination({ destination }: Props) {
     ...styles.listItem,
     backgroundImage: `url(${destination.imageLink})`,
   };
-  console.log(destination);
 
   return (
     <ListItem
@@ -30,7 +29,7 @@ export default function FavoritesDestination({ destination }: Props) {
         </Typography>
         <Typography sx={styles.typography}>
           <LocationOnOutlinedIcon sx={{ width: "20px", color: "#FF8344" }} />{" "}
-          {destination.localization.name}
+          {destination.country.name}
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "5%", color: "#FF8344", width: "20px" }}
           />
@@ -44,7 +43,7 @@ export default function FavoritesDestination({ destination }: Props) {
 const styles = {
   listItem: {
     position: "relative",
-    minWidth: "22%",
+    minWidth: "25%",
     width: "230px",
     backgroundSize: "cover",
     borderRadius: "25px",

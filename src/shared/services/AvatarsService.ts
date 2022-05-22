@@ -1,7 +1,7 @@
 import api from "./api";
 
 export default class AvatarsService {
-  getAll() {
-    return api.get(`/avatars`);
+  getAll(section: string, username: string) {
+    return api.get(`/avatars?section=${section}&username=${username}`);
   }
 }

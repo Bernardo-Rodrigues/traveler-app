@@ -10,7 +10,7 @@ export default function useListTips() {
   const contexts = useContexts();
   const { currentTrip } = contexts.currentTrip;
   const { data, loading, act, error } = useAsync(() =>
-    service.listTips(currentTrip.destinyId, headers)
+    service.listTips(currentTrip.destinationId, headers)
   );
 
   return {

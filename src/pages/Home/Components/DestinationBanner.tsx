@@ -26,7 +26,7 @@ export default function DestinationBanner({ destination }: Props) {
         </Typography>
         <Typography sx={{ display: "flex", gap: "5px", alignItems: "center" }}>
           <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />{" "}
-          {destination.localization.name}
+          {destination.country.name}
           <StarBorderOutlinedIcon
             sx={{ marginLeft: "25px", color: "#FF8344" }}
           />
