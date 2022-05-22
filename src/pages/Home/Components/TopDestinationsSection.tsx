@@ -1,4 +1,4 @@
-import { List, Typography } from "@mui/material";
+import { Autocomplete, List, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import { useEffect } from "react";
@@ -6,15 +6,25 @@ import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import useTopDestinations from "../../../shared/hooks/api/useTopDestinations";
 import DestinationItem from "./DestinationItem";
+import useListContinents from "../../../shared/hooks/api/useListContinents";
+import useHeaders from "../../../shared/hooks/useHeaders";
 
 export default function TopDestinationsSection() {
   const contexts = useContexts();
   const { logout } = contexts.user;
+  const headers = useHeaders();
   const {
+    listTopDestinations,
     topDestinations,
     loadingTopDestinations,
     listingTopDestinationsError,
   } = useTopDestinations();
+  const { continents, loadingContinents } = useListContinents();
+
+  useEffect(() => {
+    listTopDestinations(null, headers);
+    //eslint-disable-next-line
+  }, []);
 
   useEffect(() => {
     if (listingTopDestinationsError) {
@@ -24,16 +34,31 @@ export default function TopDestinationsSection() {
     //eslint-disable-next-line
   }, [listingTopDestinationsError]);
 
-  if ((loadingTopDestinations && !topDestinations) || !topDestinations) {
+  if (
+    (loadingTopDestinations && !topDestinations) ||
+    !topDestinations ||
+    (loadingContinents && !continents) ||
+    !continents
+  ) {
     return <div>loading...</div>;
   }
 
   return (
     <Box sx={styles.topDestinations}>
-      <Typography variant="h5" fontWeight="bold" sx={styles.title}>
-        Top destinations
-        <LeaderboardIcon sx={{ color: "#2ED29B" }} />
-      </Typography>
+      <Box sx={styles.title}>
+        <Typography variant="h5" fontWeight="bold" display="flex" gap="15px">
+          Top destinations
+          <LeaderboardIcon sx={{ color: "#2ED29B" }} />
+        </Typography>
+        <Autocomplete
+          sx={{ width: "20%" }}
+          options={continents}
+          renderInput={(params) => <TextField {...params} label="Continent" />}
+          onChange={(event: any, newValue: string | null) => {
+            listTopDestinations(newValue, headers);
+          }}
+        />
+      </Box>
       <List sx={styles.list}>
         {topDestinations.map((destination: any, i: number) => (
           <DestinationItem key={i} size="small" destination={destination} />
@@ -55,7 +80,7 @@ const styles = {
   },
   title: {
     display: "flex",
-    gap: "15px",
+    justifyContent: "space-between",
     alignItems: "center",
     position: "sticky",
     top: "0px",
