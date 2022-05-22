@@ -21,6 +21,7 @@ export default function SignIn() {
   const { auth, login } = contexts.user;
   const { currentTrip, setCurrentTrip } = contexts.currentTrip;
   const { setHaveAchievement } = contexts.achievement;
+  const { setSection } = contexts.section;
   const [values, setValues] = useState<FormInterface>({
     email: "",
     password: "",
@@ -39,20 +40,23 @@ export default function SignIn() {
   }, [errorSigningIn]);
 
   useEffect(() => {
+    setSection("sign-in");
     if (auth) {
+      setSection("dashboard");
       navigate("/");
     } else if (authData) {
       if (
         currentTrip &&
-        (!authData.currentTrip || authData.currentTravel.id !== currentTrip.id)
+        (!authData.currentTrip || authData.currentTrip.id !== currentTrip.id)
       ) {
-        if (authData.currentTravel) setCurrentTrip(authData.currentTrip);
+        if (authData.currentTrip) setCurrentTrip(authData.currentTrip);
         setHaveAchievement(currentTrip.destinyId);
       } else {
         if (authData.currentTrip) setCurrentTrip(authData.currentTrip);
         else setCurrentTrip(null);
       }
       login(authData);
+      setSection("dashboard");
       navigate("/");
     }
     //eslint-disable-next-line

@@ -22,6 +22,7 @@ export default function SignUp() {
   const [passwordError, setPasswordError] = useState(false);
   const contexts = useContexts();
   const { setMessage } = contexts.alert;
+  const { setSection } = contexts.section;
   const [values, setValues] = useState<FormInterface>({
     username: "",
     email: "",
@@ -54,6 +55,7 @@ export default function SignUp() {
 
   useEffect(() => {
     if (success) {
+      setSection("sign-in");
       navigate("/sign-in");
     }
     //eslint-disable-next-line

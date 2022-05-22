@@ -28,7 +28,7 @@ export default function DestinationSection() {
   if ((loadingDestination && !destination) || !destination) {
     return <Box sx={styles.destination}>Loading...</Box>;
   }
-  console.log(destination);
+
   return (
     <Box sx={styles.destination}>
       <DestinationBanner destination={destination} />

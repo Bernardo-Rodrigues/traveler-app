@@ -14,7 +14,7 @@ interface Props {
 
 export default function SectionProvider({ children }: Props) {
   const pathname = useLocation().pathname.split("/");
-  const [section, setSection] = useState<string>("dashboard");
+  const [section, setSection] = useState<string>("sign-up");
 
   useEffect(() => {
     if (pathname.length > 2) setSection(pathname[2]);

@@ -55,7 +55,7 @@ export default function Home() {
       ) : section === "achievements" ? (
         <AchievementsSection />
       ) : (
-        <DestinationSection />
+        section !== "sign-up" && <DestinationSection />
       )}
       {achievement && <AchievementModal achievement={achievement} />}
       <RightMenu />

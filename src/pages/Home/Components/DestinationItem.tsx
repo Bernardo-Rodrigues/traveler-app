@@ -10,10 +10,11 @@ import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SearchIcon from "@mui/icons-material/Search";
 import { useNavigate } from "react-router";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
+import useContexts from "../../../shared/hooks/useContexts";
 
 interface Destination {
   name: string;
-  localization: any;
+  country: any;
   imageLink: string;
   score: number;
 }
@@ -25,6 +26,8 @@ interface Props {
 
 export default function DestinationItem({ destination, size }: Props) {
   const navigate = useNavigate();
+  const contexts = useContexts();
+  const { setSection } = contexts.section;
   const listItem = {
     ...styles.listItem,
     marginBottom: size === "small" ? "10px" : "25px",
@@ -50,7 +53,7 @@ export default function DestinationItem({ destination, size }: Props) {
         </Typography>
         <Typography sx={{ display: "flex", alignItems: "center" }}>
           <LocationOnOutlinedIcon sx={{ color: "#FF8344" }} />
-          {destination.localization.name}
+          {destination.country.name}
           <StarBorderOutlinedIcon sx={styles.starIcon} />
           {destination.score.toFixed(2)}
         </Typography>
@@ -59,7 +62,10 @@ export default function DestinationItem({ destination, size }: Props) {
       <Button
         variant="contained"
         startIcon={<SearchIcon />}
-        onClick={() => navigate(`/destinations/${destination.name}`)}
+        onClick={() => {
+          setSection(destination.name);
+          navigate(`/destinations/${destination.name}`);
+        }}
         sx={styles.button}
       >
         Explore this destination
