@@ -1,7 +1,7 @@
 import useAsync from "../useAsync";
-import DestinationsService from "../../services/DestinationsService";
+import TravelsService from "../../services/TravelsService";
 
-const service = new DestinationsService();
+const service = new TravelsService();
 
 export default function useAddTravel() {
   const { error, loading, act, data } = useAsync(service.addTravel, false);

@@ -19,7 +19,7 @@ export default class DestiniationsService {
   unfavorite(destinationId: number, headers: any) {
     return api.post(`/destinations/${destinationId}/unfavorite`, {}, headers);
   }
-  addTravel(destinationId: number, body: any, headers: any) {
-    return api.post(`/destinations/${destinationId}/travel`, body, headers);
+  listTips(destinationId: number, headers: any) {
+    return api.get(`/destinations/${destinationId}/tips`, headers);
   }
 }
