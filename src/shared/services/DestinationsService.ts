@@ -1,8 +1,9 @@
 import api from "./api";
 
 export default class DestiniationsService {
-  getAll(headers: any) {
-    return api.get(`/destinations`, headers);
+  getAll(name: string, headers: any) {
+    console.log({ name, headers });
+    return api.get(`/destinations?name=${name}`, headers);
   }
   getAllFavorites(headers: any) {
     return api.get(`/destinations/favorites`, headers);

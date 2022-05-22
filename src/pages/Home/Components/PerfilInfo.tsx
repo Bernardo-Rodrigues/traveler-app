@@ -1,10 +1,14 @@
-import { Avatar, Typography } from "@mui/material";
+import { Avatar, IconButton, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
+import EditIcon from "@mui/icons-material/Edit";
+import { useState } from "react";
+import EditPerfilModal from "./EditPerfilModal";
 
 export default function PerfilInfo() {
   const contexts = useContexts();
   const { user } = contexts.user;
+  const [edit, setEdit] = useState(false);
 
   return (
     <Box
@@ -13,8 +17,10 @@ export default function PerfilInfo() {
         gap: "5%",
         alignItems: "center",
         marginBottom: "40px",
+        width: "100%",
       }}
     >
+      {edit && <EditPerfilModal edit={edit} setEdit={setEdit} />}
       <Avatar
         alt="Avatar"
         src={user?.imageLink}
@@ -27,9 +33,14 @@ export default function PerfilInfo() {
         <Typography
           sx={{ fontWeight: "bold", fontSize: "14px", color: "#73848C" }}
         >
-          Traveler
+          {user?.title}
         </Typography>
       </Box>
+      <Tooltip sx={{ marginLeft: "25%" }} title="Edit">
+        <IconButton onClick={() => setEdit(true)}>
+          <EditIcon />
+        </IconButton>
+      </Tooltip>
     </Box>
   );
 }

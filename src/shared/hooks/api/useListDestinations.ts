@@ -5,8 +5,7 @@ import useHeaders from "../useHeaders";
 const service = new DestinationsService();
 
 export default function useListDestinations() {
-  const headers = useHeaders();
-  const { data, loading, act, error } = useAsync(() => service.getAll(headers));
+  const { data, loading, act, error } = useAsync(service.getAll, false);
 
   return {
     destinations: data,

@@ -2,8 +2,8 @@ import { FormControl, InputLabel, OutlinedInput } from "@mui/material";
 import Form from "../../interfaces/Form";
 
 interface Props {
-  values: Form;
-  setValues: (value: React.SetStateAction<Form>) => void;
+  values: any;
+  setValues: (value: React.SetStateAction<any>) => void;
 }
 
 export default function NameInput({ values, setValues }: Props) {
