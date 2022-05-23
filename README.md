@@ -1,4 +1,4 @@
-# MyWallet
+# Traveler
 
 The front-end of a full stack application with the concept of a traveler guide website, where you can create a personal account and explore some of the famous destinations around the world, seeing informations about each one and you can also interact with them marking as favorite, booking a trip, receiveing an achievement when you have already visited a destination and give a note to the destination. 
 
