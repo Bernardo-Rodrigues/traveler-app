@@ -1,46 +1,74 @@
-# Getting Started with Create React App
+# MyWallet
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The front-end of a full stack application with the concept of a traveler guide website, where you can create a personal account and explore some of the famous destinations around the world, seeing informations about each one and you can also interact with them marking as favorite, booking a trip, receiveing an achievement when you have already visited a destination and give a note to the destination. 
 
-## Available Scripts
+<div align='center'>
+  <img  src='https://hjjvsmpqvznxkydtrqzo.supabase.co/storage/v1/object/public/assets/Readme1.png' />
+  <img  src='https://hjjvsmpqvznxkydtrqzo.supabase.co/storage/v1/object/public/assets/Readme2.png' />
+  <img  src='https://hjjvsmpqvznxkydtrqzo.supabase.co/storage/v1/object/public/assets/Readme3.png' />
+</div>
 
-In the project directory, you can run:
+Try it out now at https://traveler-psi.vercel.app
+<br/>
+Link to the backend repository: https://github.com/Bernardo-Rodrigues/traveler-api
 
-### `npm start`
+## About
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The main features of this application are:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Create a personal account
+- See a list of the most famous destinations around the world
+- See some details about each destination
+- Mark a destination as favorite
+- See the list of your favorites destinations
+- Mark a destinaton as visited
+- Receive achievements for each visited destination
+- Give a note to a destination
+- See a leaderboard of the top rated destinations
+- Book a trip to a destination
+- See your trips schedule
+- Receive specific tips when currently in a trip
+- Edit your profile
 
-### `npm test`
+## Why?
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+This application was created to put into practice an original idea of a personal travel guide to help with information about the destinations I want to know, also developed to practice creating automated tests with jest, to put the project in docker containers and use flows of CI/CD.
 
-### `npm run build`
+## Technologies
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The following tools and frameworks were used in the construction of the project:<br>
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
+  ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
+  ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+  ![React Router](https://img.shields.io/badge/React_Router-CA4245?style=for-the-badge&logo=react-router&logoColor=white)
+  ![Styled Components](https://img.shields.io/badge/styled--components-DB7093?style=for-the-badge&logo=styled-components&logoColor=white)
+  ![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+  ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+  ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+  ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
+  ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
+  ![cypress](https://img.shields.io/badge/-cypress-%23E5E5E5?style=for-the-badge&logo=cypress&logoColor=058a5e)
+  ![ESLint](https://img.shields.io/badge/ESLint-4B3263?style=for-the-badge&logo=eslint&logoColor=white)
+  ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
+  ![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)
+  ![Heroku](https://img.shields.io/badge/heroku-%23430098.svg?style=for-the-badge&logo=heroku&logoColor=white)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## How to run
 
-### `npm run eject`
+1. Clone this repository
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+2. Install docker
+```bash
+ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+3. Run the container with
+```bash
+docker-compose up --build
+```
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. Finally, access http://localhost:3000 on your favorite browser
