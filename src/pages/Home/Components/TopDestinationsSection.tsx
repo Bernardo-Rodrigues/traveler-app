@@ -1,4 +1,10 @@
-import { Autocomplete, List, TextField, Typography } from "@mui/material";
+import {
+  Autocomplete,
+  CircularProgress,
+  List,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import { useEffect } from "react";
@@ -12,6 +18,7 @@ import useHeaders from "../../../shared/hooks/useHeaders";
 export default function TopDestinationsSection() {
   const contexts = useContexts();
   const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
   const headers = useHeaders();
   const {
     listTopDestinations,
@@ -28,7 +35,7 @@ export default function TopDestinationsSection() {
 
   useEffect(() => {
     if (listingTopDestinationsError) {
-      fireAlert(listingTopDestinationsError.data);
+      setMessage({ type: "error", text: listingTopDestinationsError.data });
       if (listingTopDestinationsError.status === 401) logout();
     }
     //eslint-disable-next-line
@@ -40,7 +47,16 @@ export default function TopDestinationsSection() {
     (loadingContinents && !continents) ||
     !continents
   ) {
-    return <div>loading...</div>;
+    return (
+      <Box
+        sx={{
+          ...styles.topDestinations,
+          ...styles.center,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -91,5 +107,10 @@ const styles = {
   list: {
     display: "flex",
     flexDirection: "column",
+  },
+  center: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 };

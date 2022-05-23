@@ -1,14 +1,14 @@
 import {
   Avatar,
+  CircularProgress,
   List,
   ListItemAvatar,
   ListItemButton,
+  Box,
   Typography,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useAvatars from "../../hooks/api/useAvatars";
-import useContexts from "../../hooks/useContexts";
-import Form from "../../interfaces/Form";
 
 interface Props {
   values: any;
@@ -32,7 +32,11 @@ export default function Avatars({ values, setValues }: Props) {
   }
 
   if ((loadingAvatars && !avatars) || !avatars) {
-    return <div>Loading...</div>;
+    return (
+      <Box>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (

@@ -6,6 +6,7 @@ import useContexts from "../../../shared/hooks/useContexts";
 import DestinationBanner from "./DestinationBanner";
 import DestinationFooter from "./DestinationFooter";
 import DestinationDescriptions from "./DestinationDescriptions";
+import { CircularProgress } from "@mui/material";
 
 export default function DestinationSection() {
   const {
@@ -26,7 +27,11 @@ export default function DestinationSection() {
   }, [getDestinationError]);
 
   if ((loadingDestination && !destination) || !destination) {
-    return <Box sx={styles.destination}>Loading...</Box>;
+    return (
+      <Box sx={{ ...styles.destination, ...styles.center }}>
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -49,5 +54,10 @@ const styles = {
     padding: "30px 30px 30px",
     borderRadius: "50px",
     overflowY: "scroll",
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };

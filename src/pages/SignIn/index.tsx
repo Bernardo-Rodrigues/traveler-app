@@ -50,7 +50,8 @@ export default function SignIn() {
         (!authData.currentTrip || authData.currentTrip.id !== currentTrip.id)
       ) {
         if (authData.currentTrip) setCurrentTrip(authData.currentTrip);
-        setHaveAchievement(currentTrip.destinyId);
+        else setCurrentTrip(null);
+        setHaveAchievement(currentTrip.destinationId);
       } else {
         if (authData.currentTrip) setCurrentTrip(authData.currentTrip);
         else setCurrentTrip(null);

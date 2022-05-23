@@ -1,4 +1,10 @@
-import { InputAdornment, List, TextField, Typography } from "@mui/material";
+import {
+  CircularProgress,
+  InputAdornment,
+  List,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import { useEffect, useState } from "react";
 import useListDestinations from "../../../shared/hooks/api/useListDestinations";
@@ -42,9 +48,15 @@ export default function DestinationsSection() {
     return (
       <Box sx={styles.destinations}>
         <Typography variant="h3" sx={styles.title}>
-          Destination
+          Destinations
         </Typography>
-        Loading...
+        <Box
+          sx={{
+            ...styles.center,
+          }}
+        >
+          <CircularProgress />
+        </Box>
       </Box>
     );
   }
@@ -96,5 +108,11 @@ const styles = {
     top: "0px",
     zIndex: "1",
     background: "#F1FBF4",
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "80%",
   },
 };

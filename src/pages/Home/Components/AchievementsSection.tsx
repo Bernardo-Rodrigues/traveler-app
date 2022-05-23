@@ -1,4 +1,4 @@
-import { Typography, Box } from "@mui/material";
+import { Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import useAchievements from "../../../shared/hooks/api/useListAchievements";
 import useContexts from "../../../shared/hooks/useContexts";
@@ -25,12 +25,12 @@ export default function AchievementsSection() {
         <Typography variant="h4" sx={styles.title}>
           Achievements
         </Typography>
-        Loading...
+        <Box>
+          <CircularProgress />
+        </Box>
       </Box>
     );
   }
-
-  console.log(achievements);
 
   return (
     <Box sx={styles.achievements}>

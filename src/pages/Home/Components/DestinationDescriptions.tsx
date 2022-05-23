@@ -11,7 +11,12 @@ export default function DestinationDescriptions({ descriptions }: Props) {
         {descriptions.map((description: any, i: number) => (
           <ListItem
             key={i}
-            sx={{ display: "flex", flexDirection: "column", gap: "15px" }}
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              gap: "25px",
+              mb: "25px",
+            }}
           >
             <Typography variant="h5" fontWeight="bold">
               {description.type}

@@ -18,7 +18,7 @@ export default function DestinationAssessments({
   destination,
   onUpdate,
 }: Props) {
-  const [rating, setRating] = useState<number | null>(0);
+  const [rating, setRating] = useState<number | null>(destination.personalRate);
   const { achievements, receiveAchievements } = useReceiveAchievement();
   const { addReview, addReviewError } = useAddReview();
   const headers = useHeaders();
@@ -37,7 +37,7 @@ export default function DestinationAssessments({
     setMessage({ type: "success", text: "The review has been sent" });
     onUpdate();
   }
-  console.log(achievements);
+
   useEffect(() => {
     if (addReviewError) {
       fireAlert(addReviewError.data);

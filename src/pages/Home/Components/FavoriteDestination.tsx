@@ -44,6 +44,7 @@ const styles = {
   listItem: {
     position: "relative",
     minWidth: "23%",
+    width: "250px",
     backgroundSize: "cover",
     borderRadius: "25px",
     border: "3px solid #2ED29B",

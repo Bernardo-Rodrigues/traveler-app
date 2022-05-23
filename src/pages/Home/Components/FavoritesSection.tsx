@@ -1,4 +1,4 @@
-import { List, Typography } from "@mui/material";
+import { CircularProgress, List, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import FavoriteDestination from "./FavoriteDestination";
@@ -23,7 +23,16 @@ export default function FavoritesSection() {
   }, [listingFavoritesrror]);
 
   if ((loadingFavorites && !favorites) || !favorites) {
-    return <div>loading...</div>;
+    return (
+      <Box
+        sx={{
+          ...styles.favorites,
+          ...styles.center,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -65,5 +74,10 @@ const styles = {
     width: "100%",
     height: "87%",
     overflow: "scroll",
+  },
+  center: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };

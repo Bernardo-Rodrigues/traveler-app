@@ -1,4 +1,4 @@
-import { Tab, Tabs, Box } from "@mui/material";
+import { Tab, Tabs, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
@@ -24,7 +24,16 @@ export default function Tips() {
   }, [listingTipsrror]);
 
   if ((loadingTips && !tips) || !tips) {
-    return <div>loading...</div>;
+    return (
+      <Box
+        sx={{
+          ...styles.tips,
+          ...styles.center,
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    );
   }
 
   return (
@@ -53,5 +62,10 @@ const styles = {
     marginTop: "30px",
     height: "40%",
     width: "100%",
+  },
+  center: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
   },
 };

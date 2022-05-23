@@ -71,7 +71,6 @@ export default function EditPerfilModal({ edit, setEdit }: Props) {
 
   useEffect(() => {
     if (success) {
-      console.log(success);
       setUser(success);
       setEdit(false);
     }
@@ -80,6 +79,8 @@ export default function EditPerfilModal({ edit, setEdit }: Props) {
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if (!values.username || !values.avatarId || !values.title)
+      return setMessage({ type: "error", text: "Fill all fields or close" });
     await editUser(values, headers);
   };
 
