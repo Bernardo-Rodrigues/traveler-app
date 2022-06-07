@@ -7,6 +7,7 @@ import DestinationBanner from "./DestinationBanner";
 import DestinationFooter from "./DestinationFooter";
 import DestinationDescriptions from "./DestinationDescriptions";
 import { CircularProgress } from "@mui/material";
+import DestinationsMap from "./DestinationMap";
 
 export default function DestinationSection() {
   const {
@@ -38,6 +39,7 @@ export default function DestinationSection() {
     <Box sx={styles.destination}>
       <DestinationBanner destination={destination} />
       <DestinationDescriptions descriptions={destination.descriptions} />
+      <DestinationsMap localization={destination.localization[0]} />
       <DestinationFooter
         destination={destination}
         onUpdate={() => updateDestination(destination.name)}
