@@ -15,9 +15,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <GlobalProvider>
           <LoadScript
-            googleMapsApiKey={
-              process.env.REACT_APP_GOOGLE_MAPS_API_KEY as string
-            }
+            googleMapsApiKey={process.env.REACT_APP_GOOGLE_API_KEY as string}
           >
             <AppRoutes />
             <Alert />
