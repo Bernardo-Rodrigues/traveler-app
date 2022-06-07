@@ -47,7 +47,7 @@ export default function DestinationsSection() {
   if ((loadingDestinations && !destinations) || !destinations) {
     return (
       <Box sx={styles.destinations}>
-        <Typography variant="h3" sx={styles.title}>
+        <Typography fontWeight="bold" variant="h3" sx={styles.title}>
           Destinations
         </Typography>
         <Box
