@@ -16,6 +16,7 @@ interface User {
   username: string;
   imageLink: string;
   title: string;
+  calendar: boolean;
 }
 
 export interface UserContextType {
@@ -36,7 +37,7 @@ export default function UserProvider({ children }: Props) {
   function login(authData: any) {
     const { token, username, imageLink, title } = authData;
     setAuth({ token });
-    setUser({ username, imageLink, title });
+    setUser({ username, imageLink, title, calendar: false });
   }
 
   function logout() {
