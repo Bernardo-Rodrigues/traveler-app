@@ -1,7 +1,5 @@
-import useAsync from "../useAsync";
 import DestinationsService from "../../services/DestinationsService";
-import useHeaders from "../useHeaders";
-
+import useAsync from "../useAsync";
 const service = new DestinationsService();
 
 export default function useListDestinations() {

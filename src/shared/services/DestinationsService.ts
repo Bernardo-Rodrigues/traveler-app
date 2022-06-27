@@ -7,10 +7,14 @@ export default class DestiniationsService {
   getAllFavorites(headers: any) {
     return api.get(`/destinations/favorites`, headers);
   }
-  getTop(continent: string, headers: any) {
+  getTop(continent: string, headers?: any) {
+    if (continent && typeof continent === "object") {
+      headers = continent;
+      continent = "";
+    }
     return api.get(`/destinations/top?continent=${continent}`, headers);
   }
-  getOne(destinationName: string, headers: any) {
+  getOne(destinationName: string, headers?: any) {
     return api.get(`/destinations/${destinationName}`, headers);
   }
   favorite(destinationId: number, headers: any) {
@@ -19,7 +23,7 @@ export default class DestiniationsService {
   unfavorite(destinationId: number, headers: any) {
     return api.post(`/destinations/${destinationId}/unfavorite`, {}, headers);
   }
-  listTips(destinationId: number, headers: any) {
+  listTips(destinationId: number, headers?: any) {
     return api.get(`/destinations/${destinationId}/tips`, headers);
   }
 }

@@ -1,20 +1,21 @@
+import { useAuth } from "@clerk/clerk-react";
 import { Typography, Box, CircularProgress } from "@mui/material";
 import { useEffect } from "react";
 import useAchievements from "../../../shared/hooks/api/useListAchievements";
 import useContexts from "../../../shared/hooks/useContexts";
-import { fireAlert } from "../../../shared/utils/alerts";
 import Achievement from "./Achievement";
 
 export default function AchievementsSection() {
   const { achievements, loadingAchievements, listingAchievementsError } =
     useAchievements();
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
+  const clerkAuth = useAuth();
 
   useEffect(() => {
     if (listingAchievementsError) {
-      fireAlert(listingAchievementsError.data);
-      if (listingAchievementsError.status === 401) logout();
+      setMessage(listingAchievementsError.data);
+      if (listingAchievementsError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingAchievementsError]);

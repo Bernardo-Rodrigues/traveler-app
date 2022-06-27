@@ -1,12 +1,10 @@
-import useAsync from "../useAsync";
 import AchievementsService from "../../services/AchievementsService";
-import useHeaders from "../useHeaders";
+import useAsync from "../useAsync";
 
 const service = new AchievementsService();
 
 export default function useAchievements() {
-  const headers = useHeaders();
-  const { data, loading, act, error } = useAsync(() => service.list(headers));
+  const { data, loading, act, error } = useAsync(service.list);
 
   return {
     achievements: data,

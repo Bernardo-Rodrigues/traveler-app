@@ -4,20 +4,22 @@ import BookmarksIcon from "@mui/icons-material/Bookmarks";
 import FavoriteDestination from "./FavoriteDestination";
 import useListFavorites from "../../../shared/hooks/api/useListFavorites";
 import { useEffect } from "react";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import NoFavorites from "./NoFavorites";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function FavoritesSection() {
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
   const { favorites, loadingFavorites, listingFavoritesrror } =
     useListFavorites();
 
+  const clerkAuth = useAuth();
+
   useEffect(() => {
     if (listingFavoritesrror) {
-      fireAlert(listingFavoritesrror.data);
-      if (listingFavoritesrror.status === 401) logout();
+      setMessage(listingFavoritesrror.data);
+      if (listingFavoritesrror.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingFavoritesrror]);

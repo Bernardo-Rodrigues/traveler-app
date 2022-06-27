@@ -3,11 +3,10 @@ import { useEffect, useState } from "react";
 import AddTaskIcon from "@mui/icons-material/AddTask";
 import FavoriteButton from "./FavoriteButton";
 import useReceiveAchievement from "../../../shared/hooks/api/useReceiveAchievement";
-import useHeaders from "../../../shared/hooks/useHeaders";
 import AchievementModal from "./AchievementModal";
 import useAddReview from "../../../shared/hooks/api/useMakeReview";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
+import { useAuth } from "@clerk/clerk-react";
 
 interface Props {
   destination: any;
@@ -21,27 +20,26 @@ export default function DestinationAssessments({
   const [rating, setRating] = useState<number | null>(destination.personalRate);
   const { achievements, receiveAchievements } = useReceiveAchievement();
   const { addReview, addReviewError } = useAddReview();
-  const headers = useHeaders();
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const clerkAuth = useAuth();
   const { setMessage } = contexts.alert;
 
   async function handleNewAchievement() {
-    await receiveAchievements(destination.id, headers);
+    await receiveAchievements(destination.id);
     onUpdate();
   }
 
   async function handleRating(newValue: number | null) {
     setRating(newValue);
-    await addReview({ note: newValue }, destination.id, headers);
+    await addReview({ note: newValue }, destination.id);
     setMessage({ type: "success", text: "The review has been sent" });
     onUpdate();
   }
 
   useEffect(() => {
     if (addReviewError) {
-      fireAlert(addReviewError.data);
-      if (addReviewError.status === 401) logout();
+      setMessage(addReviewError.data);
+      if (addReviewError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [addReviewError]);

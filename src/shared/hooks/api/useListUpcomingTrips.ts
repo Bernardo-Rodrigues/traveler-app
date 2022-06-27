@@ -1,14 +1,10 @@
-import useAsync from "../useAsync";
 import TravelsService from "../../services/TravelsService";
-import useHeaders from "../useHeaders";
+import useAsync from "../useAsync";
 
 const service = new TravelsService();
 
 export default function useListUpcomingTrips() {
-  const headers = useHeaders();
-  const { data, loading, act, error } = useAsync(() =>
-    service.listUpcomingTrips(headers)
-  );
+  const { data, loading, act, error } = useAsync(service.listUpcomingTrips);
 
   return {
     trips: data,

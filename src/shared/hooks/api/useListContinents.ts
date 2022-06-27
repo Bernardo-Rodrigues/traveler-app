@@ -1,12 +1,10 @@
-import useAsync from "../useAsync";
 import ContinentsService from "../../services/ContinentsService";
-import useHeaders from "../useHeaders";
+import useAsync from "../useAsync";
 
 const service = new ContinentsService();
 
 export default function useListContinents() {
-  const headers = useHeaders();
-  const { data, loading, error } = useAsync(() => service.getAll(headers));
+  const { data, loading, error } = useAsync(service.getAll);
 
   return {
     continents: data?.map((continent: any) => continent.name),

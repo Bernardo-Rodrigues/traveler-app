@@ -1,28 +1,29 @@
 import { Box } from "@mui/system";
 import { useEffect } from "react";
 import useGetDestination from "../../../shared/hooks/api/useGetDestination";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import DestinationBanner from "./DestinationBanner";
 import DestinationFooter from "./DestinationFooter";
 import DestinationDescriptions from "./DestinationDescriptions";
 import { CircularProgress } from "@mui/material";
 import DestinationsMap from "./DestinationMap";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function DestinationSection() {
   const {
     destination,
     loadingDestination,
     getDestinationError,
-    updateDestination,
+    getDestination,
   } = useGetDestination();
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
+  const clerkAuth = useAuth();
 
   useEffect(() => {
     if (getDestinationError) {
-      fireAlert(getDestinationError.data);
-      if (getDestinationError.status === 401) logout();
+      setMessage(getDestinationError.data);
+      if (getDestinationError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [getDestinationError]);
@@ -40,10 +41,7 @@ export default function DestinationSection() {
       <DestinationBanner destination={destination} />
       <DestinationDescriptions descriptions={destination.descriptions} />
       <DestinationsMap localization={destination.localization[0]} />
-      <DestinationFooter
-        destination={destination}
-        onUpdate={() => updateDestination(destination.name)}
-      />
+      <DestinationFooter destination={destination} onUpdate={getDestination} />
     </Box>
   );
 }

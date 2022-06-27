@@ -3,6 +3,7 @@ import { Box } from "@mui/system";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import StarBorderOutlinedIcon from "@mui/icons-material/StarBorderOutlined";
 import { useNavigate } from "react-router";
+import useContexts from "../../../shared/hooks/useContexts";
 
 interface Props {
   destination: any;
@@ -10,6 +11,8 @@ interface Props {
 
 export default function FavoritesDestination({ destination }: Props) {
   const navigate = useNavigate();
+  const contexts = useContexts();
+  const { setSection } = contexts.section;
   const listItem = {
     ...styles.listItem,
     backgroundImage: `url(${destination.imageLink})`,
@@ -18,7 +21,10 @@ export default function FavoritesDestination({ destination }: Props) {
   return (
     <ListItem
       sx={listItem}
-      onClick={() => navigate(`/destinations/${destination.name}`)}
+      onClick={() => {
+        setSection(destination.name);
+        navigate(`/dashboard/destinations/${destination.name}`);
+      }}
     >
       <Box sx={styles.overlay}>
         <Typography

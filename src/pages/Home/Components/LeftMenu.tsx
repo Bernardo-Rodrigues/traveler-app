@@ -1,4 +1,3 @@
-import { Button } from "@mui/material";
 import { Box } from "@mui/system";
 import Logo from "../../../shared/components/Logo";
 import HomeIcon from "@mui/icons-material/Home";
@@ -8,12 +7,13 @@ import useContexts from "../../../shared/hooks/useContexts";
 import { useNavigate } from "react-router";
 import { LeftMenuButton } from "../../../shared/styles/themes";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function LeftMenu() {
   const navigate = useNavigate();
   const contexts = useContexts();
-  const { logout } = contexts.user;
   const { section } = contexts.section;
+  const clerkAuth = useAuth();
 
   return (
     <Box sx={styles.leftMenu}>
@@ -31,7 +31,7 @@ export default function LeftMenu() {
           startIcon={<TravelExploreIcon />}
           color={section === "destinations" ? "primary" : "secondary"}
           variant="contained"
-          onClick={() => navigate("/destinations")}
+          onClick={() => navigate("/dashboard/destinations")}
         >
           Destinations
         </LeftMenuButton>
@@ -39,7 +39,7 @@ export default function LeftMenu() {
           startIcon={<WorkspacePremiumIcon />}
           color={section === "achievements" ? "primary" : "secondary"}
           variant="contained"
-          onClick={() => navigate("/achievements")}
+          onClick={() => navigate("/dashboard/achievements")}
         >
           Achievements
         </LeftMenuButton>
@@ -47,7 +47,7 @@ export default function LeftMenu() {
       <LeftMenuButton
         color="secondary"
         startIcon={<LogoutIcon />}
-        onClick={logout}
+        onClick={() => clerkAuth.signOut()}
         variant="contained"
         fullWidth
       >
@@ -59,7 +59,7 @@ export default function LeftMenu() {
 
 const styles = {
   leftMenu: {
-    width: "20%",
+    minWidth: "20%",
     display: "flex",
     flexDirection: "column",
     padding: "40px",
