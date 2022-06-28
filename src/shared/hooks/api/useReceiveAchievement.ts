@@ -1,5 +1,5 @@
-import useAsync from "../useAsync";
 import AchievementsService from "../../services/AchievementsService";
+import useAsync from "../useAsync";
 
 const service = new AchievementsService();
 

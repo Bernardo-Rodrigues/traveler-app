@@ -1,24 +1,30 @@
 import { Tab, Tabs, Box, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import useListTips from "../../../shared/hooks/api/useListTips";
 import TabPanel from "./TabPanel";
+import { useAuth } from "@clerk/clerk-react";
 
-export default function Tips() {
+interface Props {
+  currentTrip: any;
+}
+
+export default function Tips({ currentTrip }: Props) {
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
   const [value, setValue] = useState(0);
-  const { tips, loadingTips, listingTipsrror } = useListTips();
-
+  const { tips, loadingTips, listingTipsrror } = useListTips(
+    currentTrip.destinationId
+  );
+  const clerkAuth = useAuth();
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
   useEffect(() => {
     if (listingTipsrror) {
-      fireAlert(listingTipsrror.data);
-      if (listingTipsrror.status === 401) logout();
+      setMessage(listingTipsrror.data);
+      if (listingTipsrror.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingTipsrror]);
@@ -46,9 +52,21 @@ export default function Tips() {
           ))}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0} first={true} />
+      <TabPanel
+        currentTrip={currentTrip}
+        value={value}
+        index={0}
+        first={true}
+      />
       {tips.map((tip: any, i: number) => (
-        <TabPanel tip={tip} key={i} value={value} index={i + 1} first={false} />
+        <TabPanel
+          currentTrip={currentTrip}
+          tip={tip}
+          key={i}
+          value={value}
+          index={i + 1}
+          first={false}
+        />
       ))}
     </Box>
   );

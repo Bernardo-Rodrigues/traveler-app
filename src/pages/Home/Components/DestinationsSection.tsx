@@ -11,7 +11,7 @@ import useListDestinations from "../../../shared/hooks/api/useListDestinations";
 import useContexts from "../../../shared/hooks/useContexts";
 import DestinationItem from "./DestinationItem";
 import SearchIcon from "@mui/icons-material/Search";
-import useHeaders from "../../../shared/hooks/useHeaders";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function DestinationsSection() {
   const {
@@ -21,25 +21,24 @@ export default function DestinationsSection() {
     listingDestinationsError,
   } = useListDestinations();
   const contexts = useContexts();
-  const { logout } = contexts.user;
   const { setMessage } = contexts.alert;
+  const clerkAuth = useAuth();
   const [search, setSearch] = useState("");
-  const headers = useHeaders();
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     setSearch(event.target.value);
-    listDestinations(event.target.value, headers);
+    listDestinations(event.target.value);
   }
 
   useEffect(() => {
-    listDestinations(null, headers);
+    listDestinations(null);
     //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
     if (listingDestinationsError) {
       setMessage({ type: "error", text: listingDestinationsError.data });
-      if (listingDestinationsError.status === 401) logout();
+      if (listingDestinationsError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingDestinationsError]);

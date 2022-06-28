@@ -1,10 +1,10 @@
-import useAsync from "../useAsync";
 import DestinationsService from "../../services/DestinationsService";
+import useAsync from "../useAsync";
 
 const service = new DestinationsService();
 
 export default function useTopDestinations() {
-  const { data, loading, act, error } = useAsync(service.getTop, false);
+  const { data, loading, act, error } = useAsync(service.getTop);
 
   return {
     topDestinations: data,

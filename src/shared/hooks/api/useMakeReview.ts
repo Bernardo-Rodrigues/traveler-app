@@ -1,5 +1,5 @@
-import useAsync from "../useAsync";
 import ReviewsService from "../../services/ReviewsService";
+import useAsync from "../useAsync";
 
 const service = new ReviewsService();
 

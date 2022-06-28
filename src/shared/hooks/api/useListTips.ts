@@ -1,16 +1,11 @@
-import useAsync from "../useAsync";
 import DestinationsService from "../../services/DestinationsService";
-import useHeaders from "../useHeaders";
-import useContexts from "../useContexts";
+import useAsync from "../useAsync";
 
 const service = new DestinationsService();
 
-export default function useListTips() {
-  const headers = useHeaders();
-  const contexts = useContexts();
-  const { currentTrip } = contexts.currentTrip;
-  const { data, loading, act, error } = useAsync(() =>
-    service.listTips(currentTrip.destinationId, headers)
+export default function useListTips(destinationId: number) {
+  const { data, loading, act, error } = useAsync((...args: any) =>
+    service.listTips(destinationId, ...args)
   );
 
   return {

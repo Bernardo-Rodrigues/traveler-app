@@ -1,5 +1,5 @@
-import useAsync from "../useAsync";
 import DestinationsService from "../../services/DestinationsService";
+import useAsync from "../useAsync";
 
 const service = new DestinationsService();
 

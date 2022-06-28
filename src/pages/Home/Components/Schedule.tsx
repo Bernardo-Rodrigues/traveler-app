@@ -3,21 +3,20 @@ import { Box } from "@mui/system";
 import useContexts from "../../../shared/hooks/useContexts";
 import { useEffect } from "react";
 import useListUpcomingTrips from "../../../shared/hooks/api/useListUpcomingTrips";
-import { fireAlert } from "../../../shared/utils/alerts";
 import Trip from "./Trip";
-import useHeaders from "../../../shared/hooks/useHeaders";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function Schedule() {
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const { setMessage } = contexts.alert;
   const { update, setUpdate } = contexts.schedule;
-  const headers = useHeaders();
+  const clerkAuth = useAuth();
   const { trips, listingTripsError, loadingTrips, listTrips } =
     useListUpcomingTrips();
 
   useEffect(() => {
     if (update === true) {
-      listTrips(headers);
+      listTrips();
       setUpdate(false);
     }
     //eslint-disable-next-line
@@ -25,8 +24,8 @@ export default function Schedule() {
 
   useEffect(() => {
     if (listingTripsError) {
-      fireAlert(listingTripsError.data);
-      if (listingTripsError.status === 401) logout();
+      setMessage(listingTripsError.data);
+      if (listingTripsError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingTripsError]);

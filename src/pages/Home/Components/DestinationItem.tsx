@@ -64,7 +64,7 @@ export default function DestinationItem({ destination, size }: Props) {
         startIcon={<SearchIcon />}
         onClick={() => {
           setSection(destination.name);
-          navigate(`/destinations/${destination.name}`);
+          navigate(`/dashboard/destinations/${destination.name}`);
         }}
         sx={styles.button}
       >

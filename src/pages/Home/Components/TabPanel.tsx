@@ -2,16 +2,20 @@ import { Avatar, Typography, Box } from "@mui/material";
 import useContexts from "../../../shared/hooks/useContexts";
 
 interface Props {
+  currentTrip?: any;
   tip?: any;
   index: number;
   value: number;
   first: boolean;
 }
 
-export default function TabPanel({ value, index, tip, first }: Props) {
-  const contexts = useContexts();
-  const { currentTrip } = contexts.currentTrip;
-
+export default function TabPanel({
+  currentTrip,
+  value,
+  index,
+  tip,
+  first,
+}: Props) {
   return (
     <div role="tabpanel" hidden={value !== index}>
       {value === index && (

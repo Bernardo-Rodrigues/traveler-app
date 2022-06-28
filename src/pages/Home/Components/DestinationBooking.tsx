@@ -1,15 +1,14 @@
 import { Button, TextField, Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import EventIcon from "@mui/icons-material/Event";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import useHeaders from "../../../shared/hooks/useHeaders";
 import useAddTravel from "../../../shared/hooks/api/useAddTravel";
 import ApiCalendar from "react-google-calendar-api";
 import dayjs from "dayjs";
+import { useAuth } from "@clerk/clerk-react";
 
 interface Props {
   destination: any;
@@ -29,13 +28,12 @@ const apiCalendar = new ApiCalendar(config);
 export default function DestinationBooking({ destination }: Props) {
   const { addTravel, addTravelError, addTravelSuccess } = useAddTravel();
   const contexts = useContexts();
-  const { logout } = contexts.user;
+  const clerkAuth = useAuth();
   const { setMessage } = contexts.alert;
   const { setUpdate } = contexts.schedule;
   const { section } = contexts.section;
   const [startDate, setStartDate] = useState<Date | null>(null);
   const [endDate, setEndDate] = useState<Date | null>(null);
-  const headers = useHeaders();
 
   useEffect(() => {
     if (addTravelSuccess) {
@@ -47,8 +45,8 @@ export default function DestinationBooking({ destination }: Props) {
 
   useEffect(() => {
     if (addTravelError) {
-      fireAlert(addTravelError.data);
-      if (addTravelError.status === 401) logout();
+      setMessage(addTravelError.data);
+      if (addTravelError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [addTravelError]);
@@ -59,7 +57,7 @@ export default function DestinationBooking({ destination }: Props) {
     if (dayjs(startDate).isAfter(endDate))
       return setMessage({ type: "error", text: "Dates are invalid" });
 
-    await addTravel({ destinationId, startDate, endDate }, headers);
+    await addTravel({ destinationId, startDate, endDate });
 
     const event = {
       summary: `Trip to ${section}`,

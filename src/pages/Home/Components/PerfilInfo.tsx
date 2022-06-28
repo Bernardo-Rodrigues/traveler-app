@@ -1,14 +1,12 @@
 import { Avatar, IconButton, Tooltip, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import useContexts from "../../../shared/hooks/useContexts";
 import EditIcon from "@mui/icons-material/Edit";
-import { useState } from "react";
-import EditPerfilModal from "./EditPerfilModal";
+import { useNavigate } from "react-router";
+import { useUser } from "@clerk/clerk-react";
 
 export default function PerfilInfo() {
-  const contexts = useContexts();
-  const { user } = contexts.user;
-  const [edit, setEdit] = useState(false);
+  const navigate = useNavigate();
+  const { user } = useUser();
 
   return (
     <Box
@@ -20,24 +18,18 @@ export default function PerfilInfo() {
         width: "100%",
       }}
     >
-      {edit && <EditPerfilModal edit={edit} setEdit={setEdit} />}
       <Avatar
         alt="Avatar"
-        src={user?.imageLink}
+        src={user?.profileImageUrl}
         sx={{ width: "60px", height: "60px" }}
       />
       <Box>
         <Typography sx={{ fontWeight: "bold", fontSize: "18px" }}>
           {user?.username}
         </Typography>
-        <Typography
-          sx={{ fontWeight: "bold", fontSize: "14px", color: "#73848C" }}
-        >
-          {user?.title}
-        </Typography>
       </Box>
       <Tooltip sx={{ marginLeft: "25%" }} title="Edit">
-        <IconButton onClick={() => setEdit(true)}>
+        <IconButton onClick={() => navigate("/dashboard/user")}>
           <EditIcon />
         </IconButton>
       </Tooltip>

@@ -7,4 +7,7 @@ export default class TravelsService {
   addTravel(body: any, headers: any) {
     return api.post(`/travels`, body, headers);
   }
+  getCurrentTrip(headers: any) {
+    return api.get(`/travels/current`, headers);
+  }
 }

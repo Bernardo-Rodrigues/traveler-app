@@ -8,35 +8,28 @@ import {
 import { Box } from "@mui/system";
 import LeaderboardIcon from "@mui/icons-material/Leaderboard";
 import { useEffect } from "react";
-import { fireAlert } from "../../../shared/utils/alerts";
 import useContexts from "../../../shared/hooks/useContexts";
 import useTopDestinations from "../../../shared/hooks/api/useTopDestinations";
 import DestinationItem from "./DestinationItem";
 import useListContinents from "../../../shared/hooks/api/useListContinents";
-import useHeaders from "../../../shared/hooks/useHeaders";
+import { useAuth } from "@clerk/clerk-react";
 
 export default function TopDestinationsSection() {
   const contexts = useContexts();
-  const { logout } = contexts.user;
   const { setMessage } = contexts.alert;
-  const headers = useHeaders();
+  const { continents, loadingContinents } = useListContinents();
+  const clerkAuth = useAuth();
   const {
     listTopDestinations,
     topDestinations,
     loadingTopDestinations,
     listingTopDestinationsError,
   } = useTopDestinations();
-  const { continents, loadingContinents } = useListContinents();
-
-  useEffect(() => {
-    listTopDestinations(null, headers);
-    //eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     if (listingTopDestinationsError) {
       setMessage({ type: "error", text: listingTopDestinationsError.data });
-      if (listingTopDestinationsError.status === 401) logout();
+      if (listingTopDestinationsError.status === 401) clerkAuth.signOut();
     }
     //eslint-disable-next-line
   }, [listingTopDestinationsError]);
@@ -71,7 +64,7 @@ export default function TopDestinationsSection() {
           options={continents}
           renderInput={(params) => <TextField {...params} label="Continent" />}
           onChange={(event: any, newValue: string | null) => {
-            listTopDestinations(newValue, headers);
+            listTopDestinations(newValue);
           }}
         />
       </Box>

@@ -17,8 +17,7 @@ export default function SectionProvider({ children }: Props) {
   const [section, setSection] = useState<string>("sign-up");
 
   useEffect(() => {
-    if (pathname.length > 2) setSection(pathname[2]);
-    else setSection(pathname[1]);
+    setSection(pathname[pathname.length - 1]);
     //eslint-disable-next-line
   }, [pathname]);
 

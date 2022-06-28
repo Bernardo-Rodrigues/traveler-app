@@ -1,14 +1,10 @@
-import useAsync from "../useAsync";
 import DestinationsService from "../../services/DestinationsService";
-import useHeaders from "../useHeaders";
+import useAsync from "../useAsync";
 
 const service = new DestinationsService();
 
 export default function useListFavorites() {
-  const headers = useHeaders();
-  const { data, loading, act, error } = useAsync(() =>
-    service.getAllFavorites(headers)
-  );
+  const { data, loading, act, error } = useAsync(service.getAllFavorites);
 
   return {
     favorites: data,

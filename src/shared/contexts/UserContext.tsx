@@ -1,8 +1,9 @@
-import { createContext } from "react";
+import { createContext, useEffect } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 import React from "react";
 import { useNavigate } from "react-router";
 import useContexts from "../hooks/useContexts";
+import { useAuth } from "@clerk/clerk-react";
 
 interface Props {
   children: React.ReactNode;
@@ -21,6 +22,7 @@ interface User {
 
 export interface UserContextType {
   auth: Auth;
+  setAuth: any;
   user: User;
   login: (userData: any) => void;
   logout: () => void;
@@ -47,7 +49,9 @@ export default function UserProvider({ children }: Props) {
   }
 
   return (
-    <UserContext.Provider value={{ auth, user, login, logout, setUser }}>
+    <UserContext.Provider
+      value={{ auth, setAuth, user, login, logout, setUser }}
+    >
       {children}
     </UserContext.Provider>
   );
