@@ -33,7 +33,19 @@ export default function AppRoutes() {
           element={<SignIn routing="path" path="/sign-in" />}
         />
 
-        <Route path="/dashboard" element={<Home />}>
+        <Route
+          path="/dashboard"
+          element={
+            <>
+              <SignedIn>
+                <Home />
+              </SignedIn>
+              <SignedOut>
+                <RedirectToSignIn />
+              </SignedOut>
+            </>
+          }
+        >
           <Route path="" element={<DashboardSection />} />
           <Route path="destinations" element={<DestinationsSection />} />
           <Route path="destinations/:name" element={<DestinationSection />} />
