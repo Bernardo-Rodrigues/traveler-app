@@ -9,6 +9,7 @@ import useReceiveAchievement from "../../shared/hooks/api/useReceiveAchievement"
 import useHeaders from "../../shared/hooks/useHeaders";
 
 export default function Home() {
+  console.log("Home");
   const contexts = useContexts();
   const { achievements, receiveAchievements } = useReceiveAchievement();
   const { auth } = contexts.user;
