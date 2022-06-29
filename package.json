@@ -1,7 +1,7 @@
 {
   "name": "traveler-app",
   "version": "0.1.0",
-  "homepage": ".",
+  "homepage": "traveler.net.br",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
