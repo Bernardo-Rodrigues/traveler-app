@@ -7,10 +7,9 @@ const service = new AvatarsService();
 export default function useAvatars() {
   const contexts = useContexts();
   const { section } = contexts.section;
-  const { user } = contexts.user;
 
   const { data, loading, error } = useAsync(() =>
-    service.getAll(section, user?.username)
+    service.getAll(section, "default")
   );
 
   return {

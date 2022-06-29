@@ -6,31 +6,23 @@ import LeftMenu from "./Components/LeftMenu";
 import RightMenu from "./Components/RightMenu";
 import AchievementModal from "./Components/AchievementModal";
 import useReceiveAchievement from "../../shared/hooks/api/useReceiveAchievement";
-import useHeaders from "../../shared/hooks/useHeaders";
 
 export default function Home() {
-  console.log("Home");
   const contexts = useContexts();
   const { achievements, receiveAchievements } = useReceiveAchievement();
-  const { auth } = contexts.user;
   const { section } = contexts.section;
   const { haveAchievement, setHaveAchievement } = contexts.achievement;
-  const headers = useHeaders();
 
   useEffect(() => {
     if (typeof haveAchievement === "number") {
-      receiveAchievements(haveAchievement, headers);
+      receiveAchievements(haveAchievement);
       setHaveAchievement(null);
     }
     //eslint-disable-next-line
   }, [haveAchievement]);
-  console.log(section);
-  console.log(section.length);
-  console.log(auth);
-  console.log(auth?.token);
+
   if (section.length === 0) return null;
-  if (!auth?.token) return null;
-  console.log("return");
+
   return (
     <Box
       sx={{

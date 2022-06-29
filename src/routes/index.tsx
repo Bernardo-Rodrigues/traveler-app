@@ -20,7 +20,6 @@ const frontendApi = process.env.REACT_APP_CLERK_FRONTEND_API;
 
 export default function AppRoutes() {
   const navigate = useNavigate();
-  console.log("App Routes");
 
   return (
     <ClerkProvider frontendApi={frontendApi} navigate={(to) => navigate(to)}>
