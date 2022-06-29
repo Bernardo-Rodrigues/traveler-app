@@ -24,10 +24,13 @@ export default function Home() {
     }
     //eslint-disable-next-line
   }, [haveAchievement]);
-
+  console.log(section);
+  console.log(section.length);
+  console.log(auth);
+  console.log(auth?.token);
   if (section.length === 0) return null;
   if (!auth?.token) return null;
-
+  console.log("return");
   return (
     <Box
       sx={{
